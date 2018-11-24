@@ -35,7 +35,7 @@
    for each TCP connection. */
 typedef struct hello_world_state {
   struct psock p;
-  char inputbuffer[50];
+  char inputbuffer[10];
   char name[40];
 } uip_tcp_appstate_t;
 

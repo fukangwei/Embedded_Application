@@ -35,7 +35,6 @@ void delay_init() {
 }
 
 #ifdef OS_CRITICAL_METHOD
-
 void delay_us ( u32 nus ) {
     u32 ticks;
     u32 told, tnow, tcnt = 0;
@@ -80,7 +79,7 @@ void delay_us ( u32 nus ) {
     u32 temp;
     SysTick->LOAD = nus * fac_us;
     SysTick->VAL = 0x00;
-    SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk ;
+    SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
 
     do {
         temp = SysTick->CTRL;

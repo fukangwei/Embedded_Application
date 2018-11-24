@@ -362,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\SPI;..\HARDWARE\ENC28J60;..\HARDWARE\TIMER;..\uIP-1.0\uip;..\uIP-1.0\unix;..\uIP-1.0;..\uIP-1.0\apps\hello-world</IncludePath>
+              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\SPI;..\HARDWARE\ENC28J60;..\HARDWARE\TIMER;..\uIP-1.0\uip;..\uIP-1.0\unix;..\uIP-1.0</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -581,19 +581,9 @@
               <FilePath>..\uIP-1.0\uip\uip_arp.c</FilePath>
             </File>
             <File>
-              <FileName>psock.c</FileName>
+              <FileName>tcp_demo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\uIP-1.0\uip\psock.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>uip_app</GroupName>
-          <Files>
-            <File>
-              <FileName>hello-world.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\uIP-1.0\apps\hello-world\hello-world.c</FilePath>
+              <FilePath>..\uIP-1.0\tcp_demo.c</FilePath>
             </File>
           </Files>
         </Group>

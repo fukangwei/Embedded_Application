@@ -160,7 +160,6 @@ static char
 data_acked(register struct psock *s)
 {
   if(s->state == STATE_DATA_SENT && uip_acked()) {
-      uip_flags &= ~UIP_ACKDATA;
     if(s->sendlen > uip_mss()) {
       s->sendlen -= uip_mss();
       s->sendptr += uip_mss();

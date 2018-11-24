@@ -8,12 +8,12 @@ static u8 ENC28J60BANK;
 static u32 NextPacketPtr;
 
 static void ENC28J60_SPI2_Init ( void ) {
-    SPI_InitTypeDef  SPI_InitStructure;
-    GPIO_InitTypeDef  GPIO_InitStructure;
-    RCC_APB1PeriphClockCmd ( RCC_APB1Periph_SPI2,  ENABLE ); /* SPI2Ê±ÖÓÊ¹ÄÜ */
+    SPI_InitTypeDef SPI_InitStructure;
+    GPIO_InitTypeDef GPIO_InitStructure;
+    RCC_APB1PeriphClockCmd ( RCC_APB1Periph_SPI2,  ENABLE );
     RCC_APB2PeriphClockCmd (  RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC, ENABLE );
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; /* ÍÆÍìÊä³ö */
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; /* IO¿ÚËÙ¶ÈÎª50MHz */
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12 | GPIO_Pin_0;
     GPIO_Init ( GPIOB, &GPIO_InitStructure );
     GPIO_SetBits ( GPIOB, GPIO_Pin_12 | GPIO_Pin_0 );
@@ -26,42 +26,42 @@ static void ENC28J60_SPI2_Init ( void ) {
     GPIO_Init ( GPIOC, &GPIO_InitStructure );
     GPIO_ResetBits ( GPIOC, GPIO_Pin_4 );
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;  /* ¸´ÓÃÍÆÍìÊä³ö */
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init ( GPIOB, &GPIO_InitStructure );
     GPIO_SetBits ( GPIOB, GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15 );
-    SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;  /* ÉèÖÃSPIµ¥Ïò»òÕßË«ÏòµÄÊý¾ÝÄ£Ê½£ºSPIÉèÖÃÎªË«ÏßË«ÏòÈ«Ë«¹¤ */
-    SPI_InitStructure.SPI_Mode = SPI_Mode_Master; /* ÉèÖÃSPI¹¤×÷Ä£Ê½£ºÉèÖÃÎªÖ÷SPI */
-    SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b; /* ÉèÖÃSPIµÄÊý¾Ý´óÐ¡£ºSPI·¢ËÍ½ÓÊÕ8Î»Ö¡½á¹¹ */
-    SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low; /* ´®ÐÐÍ¬²½Ê±ÖÓµÄ¿ÕÏÐ×´Ì¬ÎªµÍµçÆ½ */
-    SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge; /* ´®ÐÐÍ¬²½Ê±ÖÓµÄµÚÒ»¸öÌø±äÑØ(ÉÏÉý»òÏÂ½µ)Êý¾Ý±»²ÉÑù */
-    SPI_InitStructure.SPI_NSS = SPI_NSS_Soft; /* NSSÐÅºÅÓÉÓ²¼þ(NSS¹Ü½Å)»¹ÊÇÈí¼þ(Ê¹ÓÃSSIÎ»)¹ÜÀí£ºÄÚ²¿NSSÐÅºÅÓÐSSIÎ»¿ØÖÆ */
-    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_128; /* ¶¨Òå²¨ÌØÂÊÔ¤·ÖÆµµÄÖµ£º²¨ÌØÂÊÔ¤·ÖÆµÖµÎª256 */
-    SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB; /* Ö¸¶¨Êý¾Ý´«Êä´ÓMSBÎ»»¹ÊÇLSBÎ»¿ªÊ¼£ºÊý¾Ý´«Êä´ÓMSBÎ»¿ªÊ¼ */
-    SPI_InitStructure.SPI_CRCPolynomial = 7; /* CRCÖµ¼ÆËãµÄ¶àÏîÊ½ */
-    SPI_Init ( SPI2, &SPI_InitStructure ); /* ¸ù¾ÝSPI_InitStructÖÐÖ¸¶¨µÄ²ÎÊý³õÊ¼»¯ÍâÉèSPIx¼Ä´æÆ÷ */
-    SPI_Cmd ( SPI2, ENABLE ); /* Ê¹ÄÜSPIÍâÉè */
-    SPI2_ReadWriteByte ( 0xff ); /* Æô¶¯´«Êä */
+    SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+    SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+    SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
+    SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
+    SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
+    SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_128;
+    SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
+    SPI_InitStructure.SPI_CRCPolynomial = 7;
+    SPI_Init ( SPI2, &SPI_InitStructure );
+    SPI_Cmd ( SPI2, ENABLE );
+    SPI2_ReadWriteByte ( 0xff );
 }
 
 void ENC28J60_Reset ( void ) {
-    ENC28J60_SPI2_Init(); /* SPI2³õÊ¼»¯ */
-    SPI2_SetSpeed ( SPI_BaudRatePrescaler_4 ); /* SPI2µÄSCKÆµÂÊÎª¡°36M / 4 = 9Mhz¡± */
-    TIM6_Int_Init ( 1000, 719 ); /* 100Khz¼ÆÊýÆµÂÊ£¬¼ÆÊýµ½1000Îª10ms */
-    ENC28J60_RST = 0; /* ¸´Î»ENC28J60 */
+    ENC28J60_SPI2_Init();
+    SPI2_SetSpeed ( SPI_BaudRatePrescaler_4 );
+    TIM6_Int_Init ( 1000, 719 );
+    ENC28J60_RST = 0;
     delay_ms ( 10 );
-    ENC28J60_RST = 1; /* ¸´Î»½áÊø */
+    ENC28J60_RST = 1;
     delay_ms ( 10 );
 }
 
-u8 ENC28J60_Read_Op ( u8 op, u8 addr ) { /* ¶ÁÈ¡ENC28J60¼Ä´æÆ÷(´ø²Ù×÷Âë)£¬²ÎÊýop²Ù×÷Âë£¬addrÊÇ¼Ä´æÆ÷µØÖ· */
+u8 ENC28J60_Read_Op ( u8 op, u8 addr ) {
     u8 dat = 0;
     ENC28J60_CS = 0;
     dat = op | ( addr & ADDR_MASK );
     SPI2_ReadWriteByte ( dat );
     dat = SPI2_ReadWriteByte ( 0xFF );
 
-    if ( addr & 0x80 ) { /* Èç¹ûÊÇ¶ÁÈ¡MAC/MII¼Ä´æÆ÷£¬ÔòµÚ¶þ´Î¶Áµ½µÄÊý¾Ý²ÅÊÇÕýÈ·µÄ */
+    if ( addr & 0x80 ) {
         dat = SPI2_ReadWriteByte ( 0xFF );
     }
 
@@ -69,7 +69,6 @@ u8 ENC28J60_Read_Op ( u8 op, u8 addr ) { /* ¶ÁÈ¡ENC28J60¼Ä´æÆ÷(´ø²Ù×÷Âë)£¬²ÎÊýop
     return dat;
 }
 
-/* ¶ÁÈ¡ENC28J60¼Ä´æÆ÷(´ø²Ù×÷Âë)£¬²ÎÊýopÊÇ²Ù×÷Âë£¬addrÊÇ¼Ä´æÆ÷µØÖ·£¬dataÊÇ²ÎÊý */
 void ENC28J60_Write_Op ( u8 op, u8 addr, u8 data ) {
     u8 dat = 0;
     ENC28J60_CS = 0;
@@ -79,7 +78,6 @@ void ENC28J60_Write_Op ( u8 op, u8 addr, u8 data ) {
     ENC28J60_CS = 1;
 }
 
-/* ¶ÁÈ¡ENC28J60½ÓÊÕ»º´æÊý¾Ý£¬²ÎÊýlenÊÇÒª¶ÁÈ¡µÄÊý¾Ý³¤¶È£¬dataÊÇÊä³öÊý¾Ý»º´æÇø(Ä©Î²×Ô¶¯Ìí¼Ó½áÊø·û) */
 void ENC28J60_Read_Buf ( u32 len, u8 *data ) {
     ENC28J60_CS = 0;
     SPI2_ReadWriteByte ( ENC28J60_READ_BUF_MEM );
@@ -94,7 +92,7 @@ void ENC28J60_Read_Buf ( u32 len, u8 *data ) {
     ENC28J60_CS = 1;
 }
 
-void ENC28J60_Write_Buf ( u32 len, u8 *data ) { /* ÏòENC28J60Ð´·¢ËÍ»º´æÊý¾Ý£¬²ÎÊýlenÊÇÒªÐ´ÈëµÄÊý¾Ý³¤¶È£¬dataÊÇÊý¾Ý»º´æÇø */
+void ENC28J60_Write_Buf ( u32 len, u8 *data ) {
     ENC28J60_CS = 0;
     SPI2_ReadWriteByte ( ENC28J60_WRITE_BUF_MEM );
 
@@ -107,47 +105,47 @@ void ENC28J60_Write_Buf ( u32 len, u8 *data ) { /* ÏòENC28J60Ð´·¢ËÍ»º´æÊý¾Ý£¬²ÎÊ
     ENC28J60_CS = 1;
 }
 
-void ENC28J60_Set_Bank ( u8 bank ) { /* ÉèÖÃENC28J60¼Ä´æÆ÷Bank£¬²ÎÊýbanÊÇÒªÉèÖÃµÄbank */
-    if ( ( bank & BANK_MASK ) != ENC28J60BANK ) { /* ºÍµ±Ç°bank²»Ò»ÖÂÊ±ÉèÖÃ */
+void ENC28J60_Set_Bank ( u8 bank ) {
+    if ( ( bank & BANK_MASK ) != ENC28J60BANK ) {
         ENC28J60_Write_Op ( ENC28J60_BIT_FIELD_CLR, ECON1, ( ECON1_BSEL1 | ECON1_BSEL0 ) );
         ENC28J60_Write_Op ( ENC28J60_BIT_FIELD_SET, ECON1, ( bank & BANK_MASK ) >> 5 );
         ENC28J60BANK = ( bank & BANK_MASK );
     }
 }
 
-u8 ENC28J60_Read ( u8 addr ) { /* ¶ÁÈ¡ENC28J60Ö¸¶¨¼Ä´æÆ÷£¬²ÎÊýaddrÊÇ¼Ä´æÆ÷µØÖ· */
-    ENC28J60_Set_Bank ( addr ); /* ÉèÖÃBANK */
+u8 ENC28J60_Read ( u8 addr ) {
+    ENC28J60_Set_Bank ( addr );
     return ENC28J60_Read_Op ( ENC28J60_READ_CTRL_REG, addr );
 }
 
-void ENC28J60_Write ( u8 addr, u8 data ) { /* ÏòENC28J60Ö¸¶¨¼Ä´æÆ÷Ð´Êý¾Ý¡£²ÎÊýaddrÊÇ¼Ä´æÆ÷µØÖ·£¬dataÊÇÒªÐ´ÈëµÄÊý¾Ý */
+void ENC28J60_Write ( u8 addr, u8 data ) {
     ENC28J60_Set_Bank ( addr );
     ENC28J60_Write_Op ( ENC28J60_WRITE_CTRL_REG, addr, data );
 }
 
-void ENC28J60_PHY_Write ( u8 addr, u32 data ) { /* ÏòENC28J60µÄPHY¼Ä´æÆ÷Ð´ÈëÊý¾Ý¡£²ÎÊýaddrÊÇ¼Ä´æÆ÷µØÖ·£¬dataÊÇÒªÐ´ÈëµÄÊý¾Ý */
+void ENC28J60_PHY_Write ( u8 addr, u32 data ) {
     u16 retry = 0;
-    ENC28J60_Write ( MIREGADR, addr ); /* ÉèÖÃPHY¼Ä´æÆ÷µØÖ· */
-    ENC28J60_Write ( MIWRL, data ); /* Ð´ÈëÊý¾Ý */
+    ENC28J60_Write ( MIREGADR, addr );
+    ENC28J60_Write ( MIWRL, data );
     ENC28J60_Write ( MIWRH, data >> 8 );
 
     while ( ( ENC28J60_Read ( MISTAT ) &MISTAT_BUSY ) && retry < 0XFFF ) {
-        retry++; /* µÈ´ýÐ´ÈëPHY½áÊø */
+        retry++;
     }
 }
 
-u8 ENC28J60_Init ( u8 *macaddr ) { /* ³õÊ¼»¯ENC28J60£¬²ÎÊýmacaddrÊÇMACµØÖ· */
+u8 ENC28J60_Init ( u8 *macaddr ) {
     u16 retry = 0;
     ENC28J60_Reset();
-    ENC28J60_Write_Op ( ENC28J60_SOFT_RESET, 0, ENC28J60_SOFT_RESET ); /* Èí¼þ¸´Î» */
+    ENC28J60_Write_Op ( ENC28J60_SOFT_RESET, 0, ENC28J60_SOFT_RESET );
 
-    while ( ! ( ENC28J60_Read ( ESTAT ) &ESTAT_CLKRDY ) && retry < 500 ) { /* µÈ´ýÊ±ÖÓÎÈ¶¨ */
+    while ( ! ( ENC28J60_Read ( ESTAT ) &ESTAT_CLKRDY ) && retry < 500 ) {
         retry++;
         delay_ms ( 1 );
     };
 
     if ( retry >= 500 ) {
-        return 1; /* ENC28J60³õÊ¼»¯Ê§°Ü */
+        return 1;
     }
 
     NextPacketPtr = RXSTART_INIT;
@@ -155,82 +153,64 @@ u8 ENC28J60_Init ( u8 *macaddr ) { /* ³õÊ¼»¯ENC28J60£¬²ÎÊýmacaddrÊÇMACµØÖ· */
     ENC28J60_Write ( ERXSTH, RXSTART_INIT >> 8 );
     ENC28J60_Write ( ERXRDPTL, RXSTART_INIT & 0xFF );
     ENC28J60_Write ( ERXRDPTH, RXSTART_INIT >> 8 );
-    
     ENC28J60_Write ( ERXNDL, RXSTOP_INIT & 0xFF );
     ENC28J60_Write ( ERXNDH, RXSTOP_INIT >> 8 );
-    
     ENC28J60_Write ( ETXSTL, TXSTART_INIT & 0xFF );
     ENC28J60_Write ( ETXSTH, TXSTART_INIT >> 8 );
-    
     ENC28J60_Write ( ETXNDL, TXSTOP_INIT & 0xFF );
     ENC28J60_Write ( ETXNDH, TXSTOP_INIT >> 8 );
-
     ENC28J60_Write ( ERXFCON, ERXFCON_UCEN | ERXFCON_CRCEN | ERXFCON_PMEN );
     ENC28J60_Write ( EPMM0, 0x3f );
     ENC28J60_Write ( EPMM1, 0x30 );
     ENC28J60_Write ( EPMCSL, 0xf9 );
     ENC28J60_Write ( EPMCSH, 0xf7 );
-
     ENC28J60_Write ( MACON1, MACON1_MARXEN | MACON1_TXPAUS | MACON1_RXPAUS );
-
     ENC28J60_Write ( MACON2, 0x00 );
-   
     ENC28J60_Write_Op ( ENC28J60_BIT_FIELD_SET, MACON3, MACON3_PADCFG0 | MACON3_TXCRCEN | MACON3_FRMLNEN | MACON3_FULDPX );
-
     ENC28J60_Write ( MAIPGL, 0x12 );
     ENC28J60_Write ( MAIPGH, 0x0C );
-
     ENC28J60_Write ( MABBIPG, 0x15 );
-
     ENC28J60_Write ( MAMXFLL, MAX_FRAMELEN & 0xFF );
     ENC28J60_Write ( MAMXFLH, MAX_FRAMELEN >> 8 );
-
     ENC28J60_Write ( MAADR5, macaddr[0] );
     ENC28J60_Write ( MAADR4, macaddr[1] );
     ENC28J60_Write ( MAADR3, macaddr[2] );
     ENC28J60_Write ( MAADR2, macaddr[3] );
     ENC28J60_Write ( MAADR1, macaddr[4] );
     ENC28J60_Write ( MAADR0, macaddr[5] );
-   
     ENC28J60_PHY_Write ( PHCON1, PHCON1_PDPXMD );
-
     ENC28J60_PHY_Write ( PHCON2, PHCON2_HDLDIS );
-
     ENC28J60_Set_Bank ( ECON1 );
-
     ENC28J60_Write_Op ( ENC28J60_BIT_FIELD_SET, EIE, EIE_INTIE | EIE_PKTIE );
-
     ENC28J60_Write_Op ( ENC28J60_BIT_FIELD_SET, ECON1, ECON1_RXEN );
 
     if ( ENC28J60_Read ( MAADR5 ) == macaddr[0] ) {
-        return 0;   
+        return 0;
     } else {
         return 1;
     }
 }
 
-u8 ENC28J60_Get_EREVID ( void ) { /* ¶ÁÈ¡EREVID */
+u8 ENC28J60_Get_EREVID ( void ) {
     return ENC28J60_Read ( EREVID );
 }
 
 #include "uip.h"
-void ENC28J60_Packet_Send ( u32 len, u8 *packet ) { /* Í¨¹ýENC28J60·¢ËÍÊý¾Ý°üµ½ÍøÂç£¬²ÎÊýlenÊÇÊý¾Ý°ü´óÐ¡£¬packetÊÇÊý¾Ý°ü */
-    /* ÉèÖÃ·¢ËÍ»º³åÇøµØÖ·Ð´Ö¸ÕëÈë¿Ú */
+
+void ENC28J60_Packet_Send ( u32 len, u8 *packet ) {
     ENC28J60_Write ( EWRPTL, TXSTART_INIT & 0xFF );
     ENC28J60_Write ( EWRPTH, TXSTART_INIT >> 8 );
-    /* ÉèÖÃTXNDÖ¸Õë£¬ÒÔ¶ÔÓ¦¸ø¶¨µÄÊý¾Ý°ü´óÐ¡ */
     ENC28J60_Write ( ETXNDL, ( TXSTART_INIT + len ) & 0xFF );
     ENC28J60_Write ( ETXNDH, ( TXSTART_INIT + len ) >> 8 );
-    ENC28J60_Write_Op ( ENC28J60_WRITE_BUF_MEM, 0, 0x00 ); /* Ð´Ã¿°ü¿ØÖÆ×Ö½Ú(0x00±íÊ¾Ê¹ÓÃmacon3µÄÉèÖÃ) */
-    ENC28J60_Write_Buf ( len, packet ); /* ¸´ÖÆÊý¾Ý°üµ½·¢ËÍ»º³åÇø */
-    ENC28J60_Write_Op ( ENC28J60_BIT_FIELD_SET, ECON1, ECON1_TXRTS ); /* ·¢ËÍÊý¾Ýµ½ÍøÂç */
+    ENC28J60_Write_Op ( ENC28J60_WRITE_BUF_MEM, 0, 0x00 );
+    ENC28J60_Write_Buf ( len, packet );
+    ENC28J60_Write_Op ( ENC28J60_BIT_FIELD_SET, ECON1, ECON1_TXRTS );
 
     if ( ( ENC28J60_Read ( EIR ) &EIR_TXERIF ) ) {
         ENC28J60_Write_Op ( ENC28J60_BIT_FIELD_CLR, ECON1, ECON1_TXRTS );
     }
 }
 
-/* ´ÓÍøÂç»ñÈ¡Ò»¸öÊý¾Ý°üÄÚÈÝ¡£²ÎÊýmaxlenÊÇÊý¾Ý°ü×î´óÔÊÐí½ÓÊÕ³¤¶È£¬packetÊÇÊý¾Ý°ü»º´æÇø¡£º¯Êý·µ»ØÊÕµ½µÄÊý¾Ý°ü³¤¶È(×Ö½Ú) */
 u32 ENC28J60_Packet_Receive ( u32 maxlen, u8 *packet ) {
     u32 rxstat;
     u32 len;
@@ -239,31 +219,26 @@ u32 ENC28J60_Packet_Receive ( u32 maxlen, u8 *packet ) {
         return 0;
     }
 
-    /* ÉèÖÃ½ÓÊÕ»º³åÆ÷¶ÁÖ¸Õë */
     ENC28J60_Write ( ERDPTL, ( NextPacketPtr ) );
     ENC28J60_Write ( ERDPTH, ( NextPacketPtr ) >> 8 );
-    /* ¶ÁÏÂÒ»¸ö°üµÄÖ¸Õë */
     NextPacketPtr = ENC28J60_Read_Op ( ENC28J60_READ_BUF_MEM, 0 );
     NextPacketPtr |= ENC28J60_Read_Op ( ENC28J60_READ_BUF_MEM, 0 ) << 8;
-    /* ¶Á°üµÄ³¤¶È */
     len = ENC28J60_Read_Op ( ENC28J60_READ_BUF_MEM, 0 );
     len |= ENC28J60_Read_Op ( ENC28J60_READ_BUF_MEM, 0 ) << 8;
-    len -= 4; /* È¥µôCRC¼ÆÊý */
-    /* ¶ÁÈ¡½ÓÊÕ×´Ì¬ */
+    len -= 4;
     rxstat = ENC28J60_Read_Op ( ENC28J60_READ_BUF_MEM, 0 );
     rxstat |= ENC28J60_Read_Op ( ENC28J60_READ_BUF_MEM, 0 ) << 8;
 
-    if ( len > maxlen - 1 ) { /* ÏÞÖÆ½ÓÊÕ³¤¶È */
+    if ( len > maxlen - 1 ) {
         len = maxlen - 1;
     }
 
     if ( ( rxstat & 0x80 ) == 0 ) {
-        len = 0;   
+        len = 0;
     } else {
-        ENC28J60_Read_Buf ( len, packet ); /* ´Ó½ÓÊÕ»º³åÆ÷ÖÐ¸´ÖÆÊý¾Ý°ü */
+        ENC28J60_Read_Buf ( len, packet );
     }
 
-    /* RX¶ÁÖ¸ÕëÒÆ¶¯µ½ÏÂÒ»¸ö½ÓÊÕµ½µÄÊý¾Ý°üµÄ¿ªÊ¼Î»ÖÃ£¬²¢ÊÍ·ÅÎÒÃÇ¸Õ²Å¶Á³ö¹ýµÄÄÚ´æ */
     ENC28J60_Write ( ERXRDPTL, ( NextPacketPtr ) );
     ENC28J60_Write ( ERXRDPTH, ( NextPacketPtr ) >> 8 );
     ENC28J60_Write_Op ( ENC28J60_BIT_FIELD_SET, ECON2, ECON2_PKTDEC );

@@ -7,6 +7,7 @@
 
 #if 1
 #pragma import(__use_no_semihosting)
+
 struct __FILE {
     int handle;
 };
@@ -25,7 +26,6 @@ int fputc ( int ch, FILE *f ) {
 #endif
 
 #if EN_USART1_RX
-
 u8 USART_RX_BUF[USART_REC_LEN];
 u16 USART_RX_STA = 0;
 
