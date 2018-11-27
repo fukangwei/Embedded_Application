@@ -158,7 +158,6 @@ int main ( void ) {
 
     while ( ( netif_add ( &enc28j60_netif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &ethernet_input ) == NULL ) ) {
         delay_ms ( 200 );
-        delay_ms ( 200 );
     }
 
     netif_set_default ( &enc28j60_netif ); /* 注册默认的网络接口 */

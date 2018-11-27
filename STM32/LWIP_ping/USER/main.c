@@ -66,7 +66,6 @@ int main ( void ) {
     /* 添加网络接口 */
     while ( ( netif_add ( &enc28j60_netif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &ethernet_input ) == NULL ) ) {
         delay_ms ( 200 );
-        delay_ms ( 200 );
     }
 
     netif_set_default ( &enc28j60_netif ); /* 注册默认的网络接口 */
@@ -74,7 +73,6 @@ int main ( void ) {
 
     while ( 1 ) {
         LWIP_Polling();
-        delay_ms ( 200 );
-        delay_ms ( 200 );
+        delay_ms ( 50 );
     }
 }
