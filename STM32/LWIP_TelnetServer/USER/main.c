@@ -68,7 +68,7 @@ static err_t telnet_recv ( void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t
         u8_t *datab;
         u16_t strlen;
         tcp_recved ( pcb, p->tot_len ); /* 通知内核更新接收窗口 */
-        len = p->len;  /* 获得数据长度 */
+        len = p->len; /* 获得数据长度 */
         datab = ( unsigned char * ) p->payload; /* 获得数据起始地址 */
 
         if ( ( len == 2 ) && ( *datab == 0x0d ) && ( * ( datab + 1 ) == 0x0a ) ) { /* 如果收到的是回车字符，则结束用户命令的读取，解析命令并返回处理结果 */
@@ -88,7 +88,7 @@ static err_t telnet_recv ( void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t
                     strlen = sprintf ( sndbuf, "supported Command: date hello more help quit\r\n" );
                     tcp_write ( pcb, sndbuf, strlen, TCP_WRITE_FLAG_COPY );
                 } else if ( strcmp ( cmdbuf, "quit" ) == 0 ) { /* 如果是quit命令 */
-                    cmd_flag = 0;  /* 用户命令标志清0 */
+                    cmd_flag = 0; /* 用户命令标志清0 */
                     pbuf_free ( p ); /* 释放数据pbuf */
                     return tcp_close ( pcb ); /* 服务器主动关闭连接，返回 */
                 } else { /* 对于其他命令，向用户返回如下提示信息 */
@@ -96,16 +96,16 @@ static err_t telnet_recv ( void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t
                     tcp_write ( pcb, sndbuf, strlen, TCP_WRITE_FLAG_COPY );
                 }
 
-                cmd_flag = 0;  /* 用户命令标志清0，接收下一个命令 */
+                cmd_flag = 0; /* 用户命令标志清0，接收下一个命令 */
             }
 
             strlen = sprintf ( sndbuf, "\r\nForrest_Shell>>" ); /* 向用户发送提示符 */
             tcp_write ( pcb, sndbuf, strlen, TCP_WRITE_FLAG_COPY );
         } else if ( ( len == 1 ) && ( *datab >= 0x20 ) && ( *datab <= 0x7e ) && ( cmd_flag < 19 ) ) { /* 如果收到的是字符，则在命令缓冲中记录字符 */
             cmdbuf[cmd_flag] = *datab;
-            cmd_flag++;  /* 命令标志加1 */
+            cmd_flag++; /* 命令标志加1 */
         } else if ( ( len == 1 ) && ( *datab == 0x08 ) && ( cmd_flag > 0 ) ) { /* 如果收到的是删除字符且命令缓冲中还有字符，则在缓冲中删除一个字符 */
-            cmd_flag--;  /* 删除一个字符 */
+            cmd_flag--; /* 删除一个字符 */
             strlen = sprintf ( sndbuf, "\b\b" ); /* 向用户返回退格，调整用户的命令行显示 */
             tcp_write ( pcb, sndbuf, strlen, TCP_WRITE_FLAG_COPY );
         } else if ( ( len == 1 ) && ( *datab == 0x08 ) ) {
@@ -141,7 +141,7 @@ static err_t telnet_accept ( void *arg, struct tcp_pcb *pcb, err_t err ) { /* 服
 
 void telnet_init ( void ) { /* Telnet服务器初始化程序 */
     struct tcp_pcb *pcb;
-    pcb = tcp_new();  /* 新建一个控制块 */
+    pcb = tcp_new(); /* 新建一个控制块 */
     tcp_bind ( pcb, IP_ADDR_ANY, 23 ); /* 绑定本地熟知端口号23(Telnet) */
     pcb = tcp_listen ( pcb ); /* 服务器进入侦听状态，等到客户端的连接 */
     tcp_accept ( pcb, telnet_accept ); /* 注册建立连接后的回调函数 */
