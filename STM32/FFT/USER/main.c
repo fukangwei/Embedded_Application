@@ -35,15 +35,16 @@ uint32_t GreenStopTime[32] = {0}; /* 绿色点顶端停顿时间数据 */
 
 void powerMag ( long nfill );
 
-/* LCD显示红色柱子，RedNewHeight为红色柱子高度列表 */
-void music_fft_main ( uint16_t *RedNewHeight, uint16_t *GreenNewHeight ) {
+void music_fft_main ( uint16_t *RedNewHeight, uint16_t *GreenNewHeight ) { /* LCD显示红色柱子，RedNewHeight为红色柱子高度列表 */
     int BarWidth = 12;
     static uint16_t RedOldHeight[32] = {0};
     static uint16_t GreenOldHeight[32] = {0};
 
     for ( int i = 1; i < 32; i++ ) {
-        LCD_Fill ( ( BarWidth + 3 ) * ( i - 1 ), GreenOldHeight[i], ( BarWidth + 3 ) * ( i - 1 ) + BarWidth, GreenOldHeight[i] + 3, WHITE ); /* 清除以前的绿色方块 */
-        LCD_Fill ( ( BarWidth + 3 ) * ( i - 1 ), GreenNewHeight[i], ( BarWidth + 3 ) * ( i - 1 ) + BarWidth, GreenNewHeight[i] + 3, GREEN ); /* 显示当前的绿色方块 */
+        LCD_Fill ( ( BarWidth + 3 ) * ( i - 1 ), GreenOldHeight[i], ( BarWidth + 3 ) * ( i - 1 ) + BarWidth,
+                   GreenOldHeight[i] + 3, WHITE ); /* 清除以前的绿色方块 */
+        LCD_Fill ( ( BarWidth + 3 ) * ( i - 1 ), GreenNewHeight[i], ( BarWidth + 3 ) * ( i - 1 ) + BarWidth,
+                   GreenNewHeight[i] + 3, GREEN ); /* 显示当前的绿色方块 */
 
         if ( RedNewHeight[i] > RedOldHeight[i] ) { /* 如果当前的柱子高度比之前的大，则补齐红色柱子 */
             LCD_Fill ( ( BarWidth + 3 ) * ( i - 1 ), RedOldHeight[i], ( BarWidth + 3 ) * ( i - 1 ) + BarWidth, RedNewHeight[i], RED );
@@ -84,7 +85,8 @@ int main ( void ) {
 
                 DMA_ClearFlag ( DMA1_FLAG_TC1 ); /* 清除DMA1的标志位 */
                 ADC_SoftwareStartConvCmd ( ADC1, DISABLE );
-                lBUFIN[ADC_DataNum] = ADC_ConvertedValue << 16; /* lBUFIN中每个数据的高16位存储采样数据的实部，低16位存储采样数据的虚部(总是为0) */
+                /* lBUFIN中每个数据的高16位存储采样数据的实部，低16位存储采样数据的虚部(总是为0) */
+                lBUFIN[ADC_DataNum] = ADC_ConvertedValue << 16;
                 ADC_DataNum++;
             } else { /* 达到采样的点数 */
                 TIM_Cmd ( TIM2, DISABLE ); /* 关闭定时器2 */

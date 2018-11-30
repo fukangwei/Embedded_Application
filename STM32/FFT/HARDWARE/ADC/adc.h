@@ -6,5 +6,4 @@ void Adc_Init ( void );
 u16 Get_Adc ( u8 ch );
 void DMA_Config ( void );
 void Adc_Init ( void );
-
 #endif
