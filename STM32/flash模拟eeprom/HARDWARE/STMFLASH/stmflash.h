@@ -12,5 +12,4 @@ u32 STMFLASH_ReadLenByte ( u32 ReadAddr, u16 Len ); /* Ö¸¶¨µØÖ·¿ªÊ¼¶ÁÈ¡Ö¸¶¨³¤¶ÈÊ
 void STMFLASH_Write ( u32 WriteAddr, u16 *pBuffer, u16 NumToWrite ); /* ´ÓÖ¸¶¨µØÖ·¿ªÊ¼Ğ´ÈëÖ¸¶¨³¤¶ÈµÄÊı¾İ */
 void STMFLASH_Read ( u32 ReadAddr, u16 *pBuffer, u16 NumToRead ); /* ´ÓÖ¸¶¨µØÖ·¿ªÊ¼¶Á³öÖ¸¶¨³¤¶ÈµÄÊı¾İ */
 void Test_Write ( u32 WriteAddr, u16 WriteData ); /* ²âÊÔĞ´Èë */
-
 #endif
