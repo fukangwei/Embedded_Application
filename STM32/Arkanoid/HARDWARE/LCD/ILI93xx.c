@@ -1862,7 +1862,6 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0020, 0x0000 );
         LCD_WriteReg ( 0x0021, 0x0000 );
         delay_ms ( 50 );
-        //¨´¡è?¨ªD¡ê?y
         LCD_WriteReg ( 0x0030, 0x0000 );
         LCD_WriteReg ( 0x0031, 0x0604 );
         LCD_WriteReg ( 0x0032, 0x0305 );

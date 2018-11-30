@@ -46,9 +46,9 @@ int main ( void ) {
             LCD_ShowString ( 60, 170, 200, 16, 16, "   %" );
             printf ( "\r\nDMA DATA:\r\n " );
             USART_DMACmd ( USART1, USART_DMAReq_Tx, ENABLE ); /* 使能串口1的DMA发送 */
-            MYDMA_Enable ( DMA1_Channel4 ); //开始一次DMA传输
+            MYDMA_Enable ( DMA1_Channel4 ); /* 开始一次DMA传输 */
 
-            while ( 1 ) { /*等待DMA传输完成，此时来做另外一些事，例如点灯。在实际应用中，传输数据期间可以执行另外的任务*/
+            while ( 1 ) { /* 等待DMA传输完成，此时来做另外一些事，例如点灯。在实际应用中，传输数据期间可以执行另外的任务 */
                 if ( DMA_GetFlagStatus ( DMA1_FLAG_TC4 ) != RESET ) { /* 等待通道4传输完成 */
                     DMA_ClearFlag ( DMA1_FLAG_TC4 ); /* 清除通道4传输完成标志 */
                     break;

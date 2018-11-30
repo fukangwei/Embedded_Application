@@ -43,7 +43,8 @@ void simulate ( void ) {
                 x_ball = 2 * l - 2 * r - x_ball, vx = -vx;
             }
 
-            if ( ( y_ball > bottom ) && ( ( x_ball > x_rect - w_rect / 2 - r / 1.41 ) && ( x_ball < x_rect + w_rect / 2 + r / 1.41 ) ) ) { /* Ð¡Çò´¥µ½¾ØÕó¿é */
+            if ( ( y_ball > bottom ) && ( ( x_ball > x_rect - w_rect / 2 - r / 1.41 ) && 
+                 ( x_ball < x_rect + w_rect / 2 + r / 1.41 ) ) ) { /* Ð¡Çò´¥µ½¾ØÕó¿é */
                 y_ball = 2 * ( bottom + r ) - 2 * r - y_ball, vy = -vy;
                 score_num++;
 
@@ -52,7 +53,8 @@ void simulate ( void ) {
                 } else if ( ( score_num >= 10 ) && ( score_num <= 99 ) ) {
                     LCD_ShowNum ( 50, 450, score_num, 2, 16 );
                 }
-            } else if ( ( y_ball > bottom ) && ( ( x_ball < x_rect - w_rect / 2  - r / 1.41 ) || ( x_ball > x_rect + w_rect / 2 + - r / 1.41 ) ) ) { /* Ð¡ÇòÎ´´¥µ½¾ØÕó¿é */
+            } else if ( ( y_ball > bottom ) && ( ( x_ball < x_rect - w_rect / 2  - r / 1.41 ) || 
+                        ( x_ball > x_rect + w_rect / 2 + - r / 1.41 ) ) ) { /* Ð¡ÇòÎ´´¥µ½¾ØÕó¿é */
                 LCD_Clear ( GREEN );
                 POINT_COLOR = RED;
                 LCD_ShowString ( 0, 450, 50, 50, 16, "score:" );

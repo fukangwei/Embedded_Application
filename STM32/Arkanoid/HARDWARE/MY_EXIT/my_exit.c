@@ -7,7 +7,7 @@ volatile int move_left = 0; /* 向左移动标识符 */
 volatile int move_right = 0; /* 向右移动标识符 */
 
 void key_init ( void ) {
-    GPIO_InitTypeDef  GPIO_InitStructure;
+    GPIO_InitTypeDef GPIO_InitStructure;
     NVIC_InitTypeDef NVIC_InitStructure;
     EXTI_InitTypeDef EXTI_InitStructure;
     RCC_APB2PeriphClockCmd ( RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE );
