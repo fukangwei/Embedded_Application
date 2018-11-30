@@ -220,7 +220,6 @@ void main ( void ) {
             sprintf ( send_string, SEND_MESSAGE, cur_flow, glo_flow );
             uart_first_send_string ( send_string );
             /* --------------------- 使用W5500发送数据 ---------------------------*/
-
             if ( S0_State == ( S_INIT | S_CONN ) ) {
                 uart_first_send_string ( "send" ); /* 调试功能“\^o^/” */
                 S0_Data &= ~S_TRANSMITOK;

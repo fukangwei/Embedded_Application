@@ -237,5 +237,4 @@ extern unsigned char Socket_UDP ( SOCKET s );
 extern unsigned short Read_SOCK_Data_Buffer ( SOCKET s, unsigned char *dat_ptr );
 extern void Write_SOCK_Data_Buffer ( SOCKET s, unsigned char *dat_ptr, unsigned short size );
 extern void W5500_Interrupt_Process ( void );
-
 #endif
