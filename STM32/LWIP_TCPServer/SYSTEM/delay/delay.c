@@ -81,7 +81,7 @@ void delay_us ( u32 nus ) {
     u32 temp;
     SysTick->LOAD = nus * fac_us;
     SysTick->VAL = 0x00;
-    SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk ;
+    SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
 
     do {
         temp = SysTick->CTRL;
