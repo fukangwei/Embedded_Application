@@ -23,7 +23,7 @@ u32_t last_ipreass_time;
 
 u32_t input_time;
 
-#if 1  /* TCP服务器 */
+#if 1 /* TCP服务器 */
 
 static err_t tcpserver_recv ( void *arg, struct tcp_pcb *pcb, struct pbuf *p, err_t err ) {
     if ( p != NULL ) { /* 当数据不为空 */
@@ -37,8 +37,7 @@ static err_t tcpserver_recv ( void *arg, struct tcp_pcb *pcb, struct pbuf *p, er
     return ERR_OK; /* 返回操作结果 */
 }
 
-/* 当有客户端向服务器发起连接时，该函数会被系统回调执行 */
-static err_t tcpserver_acccept ( void *arg, struct tcp_pcb *pcb, err_t err ) {
+static err_t tcpserver_acccept ( void *arg, struct tcp_pcb *pcb, err_t err ) { /* 当有客户端向服务器发起连接时，该函数会被系统回调执行 */
     tcp_recv ( pcb, tcpserver_recv ); /* 向该连接注册函数tcpserver_recv */
     return ERR_OK;
 }
