@@ -8,8 +8,8 @@ static u8 ENC28J60BANK;
 static u32 NextPacketPtr;
 
 static void ENC28J60_SPI2_Init ( void ) {
-    SPI_InitTypeDef  SPI_InitStructure;
-    GPIO_InitTypeDef  GPIO_InitStructure;
+    SPI_InitTypeDef SPI_InitStructure;
+    GPIO_InitTypeDef GPIO_InitStructure;
     RCC_APB1PeriphClockCmd ( RCC_APB1Periph_SPI2,  ENABLE );
     RCC_APB2PeriphClockCmd (  RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC, ENABLE );
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;

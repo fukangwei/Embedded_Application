@@ -97,8 +97,6 @@ void clear_response_bufer ( unsigned char *buffer ) {
     memset ( buffer, 0, strlen ( ( const char * ) buffer ) );
 }
 
-int num = 100;
-
 static char *LED_RED_CGIHandler ( int iIndex, int iNumParams, char *pcParam[], char *pcValue[] ) { /* ºìµÆ´¦Àíº¯Êý */
     int  index;
     index = FindCGIParameter ( "red", pcParam, iNumParams );
@@ -149,7 +147,7 @@ static char *Orther_CGIHandler ( int iIndex, int iNumParams, char *pcParam[], ch
 // This function is called by the HTTP server whenever it encounters an SSI
 // tag in a web page.  The iIndex parameter provides the index of the tag in
 // the ppcTags array. This function writes the substitution text
-// into the pcInsert array, writing no more than iInsertLen characters.
+// into the pcInsert array, writing no more than iInsertLen characters
 //--------------------------------------------------------------------------
 static int SSIHandler ( int iIndex, char *pcInsert, int iInsertLen ) {
     switch ( iIndex ) {

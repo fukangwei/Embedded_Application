@@ -17,7 +17,6 @@ enum tcp_client_states {
 
 struct tcp_client_state {
     u8_t state;
-
 };
 
 err_t tcp_client_poll ( void *arg, struct tcp_pcb *tpcb );

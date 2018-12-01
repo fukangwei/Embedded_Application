@@ -36,7 +36,7 @@ void lwip_demo_init ( void ) { /* 初始化lwip_demo */
 }
 
 void lwip_log ( char *str ) { /* lwip应用程序状态日志 */
-#if LWIP_DEMO_DEBUG>0
+#if LWIP_DEMO_DEBUG > 0
     printf ( "lwip:%s\r\n", str );
 #endif
 }

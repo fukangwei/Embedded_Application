@@ -17,7 +17,6 @@ enum tcp_server_states {
 
 struct tcp_server_state {
     u8_t state;
-
 };
 
 err_t tcp_server_accept ( void *arg, struct tcp_pcb *newpcb, err_t err );
