@@ -19,12 +19,9 @@
 #define LWIP_DEMO_DEBUG 1
 
 extern u8 lwip_flag;
-
-
 extern u8 lwip_test_mode;
 extern u8 lwip_demo_buf[];
 
 void lwip_demo_init ( void );
 void lwip_log ( char *str );
-
 #endif

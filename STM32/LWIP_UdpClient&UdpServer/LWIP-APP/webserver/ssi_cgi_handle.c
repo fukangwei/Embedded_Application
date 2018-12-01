@@ -22,9 +22,9 @@ static char *Orther_CGIHandler ( int iIndex, int iNumParams, char *pcParam[], ch
 static int SSIHandler ( int iIndex, char *pcInsert, int iInsertLen );
 
 static const tCGI ppcURLs[] = {
-    { "/led_red.cgi",   LED_RED_CGIHandler },
+    { "/led_red.cgi", LED_RED_CGIHandler },
     { "/led_green.cgi", LED_GREEN_CGIHandler },
-    { "/orther.cgi",    Orther_CGIHandler },
+    { "/orther.cgi", Orther_CGIHandler },
 };
 
 static const char *ppcTags[] = {
@@ -35,7 +35,7 @@ static const char *ppcTags[] = {
 enum ssi_index_s {
     SSI_INDEX_ONETREE_GET = 0,
     SSI_INDEX_FILEST_GET
-} ;
+};
 
 void num2str ( u16 num, u8 *buf, u8 len ) {
     u8 i;
@@ -79,9 +79,7 @@ void init_ssi_cgi ( void ) {
     http_set_ssi_handler ( SSIHandler, ppcTags, NUM_CONFIG_SSI_TAGS );
 }
 
-//*****************************************************************************
-// This CGI handler is called whenever the web browser requests iocontrol.cgi
-//*****************************************************************************
+/* This CGI handler is called whenever the web browser requests iocontrol.cgi */
 static int FindCGIParameter ( const char *pcToFind, char *pcParam[], int iNumParams ) {
     int iLoop;
 
@@ -97,8 +95,6 @@ static int FindCGIParameter ( const char *pcToFind, char *pcParam[], int iNumPar
 void clear_response_bufer ( unsigned char *buffer ) {
     memset ( buffer, 0, strlen ( ( const char * ) buffer ) );
 }
-
-int num = 100;
 
 static char *LED_RED_CGIHandler ( int iIndex, int iNumParams, char *pcParam[], char *pcValue[] ) {
     int  index;
@@ -146,13 +142,12 @@ static char *Orther_CGIHandler ( int iIndex, int iNumParams, char *pcParam[], ch
     return RESPONSE_PAGE_SET_CGI_RSP_URL;
 }
 
-
-//*****************************************************************************
+//--------------------------------------------------------------------------
 // This function is called by the HTTP server whenever it encounters an SSI
 // tag in a web page.  The iIndex parameter provides the index of the tag in
 // the ppcTags array. This function writes the substitution text
-// into the pcInsert array, writing no more than iInsertLen characters.
-//*****************************************************************************
+// into the pcInsert array, writing no more than iInsertLen characters
+//-------------------------------------------------------------------------
 static int SSIHandler ( int iIndex, char *pcInsert, int iInsertLen ) {
     switch ( iIndex ) {
         case SSI_INDEX_ONETREE_GET:

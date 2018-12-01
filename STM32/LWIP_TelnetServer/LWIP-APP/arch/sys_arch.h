@@ -34,5 +34,4 @@
 
 void init_lwip_timer ( void );
 u8_t timer_expired ( u32_t *last_time, u32_t tmr_interval );
-
 #endif /* __SYS_RTXC_H__ */

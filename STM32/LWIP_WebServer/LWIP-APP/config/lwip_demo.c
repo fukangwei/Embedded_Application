@@ -38,7 +38,7 @@ void lwip_demo_init ( void ) {
 }
 
 void lwip_log ( char *str ) {
-#if LWIP_DEMO_DEBUG>0
+#if LWIP_DEMO_DEBUG > 0
     printf ( "lwip:%s\r\n", str );
 #endif
 }
