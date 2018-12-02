@@ -195,7 +195,7 @@ void sysinit ( uint8 *tx_size, uint8 *rx_size  ) {
     }
 }
 
-void setGAR ( uint8 *addr   ) {
+void setGAR ( uint8 *addr ) {
     wiz_write_buf ( GAR0, addr, 4 );
 }
 
@@ -207,11 +207,11 @@ void setSUBR ( uint8 *addr ) {
     wiz_write_buf ( SUBR0, addr, 4 );
 }
 
-void setSHAR ( uint8 *addr   ) {
+void setSHAR ( uint8 *addr ) {
     wiz_write_buf ( SHAR0, addr, 6 );
 }
 
-void setSIPR ( uint8 *addr  ) {
+void setSIPR ( uint8 *addr ) {
     wiz_write_buf ( SIPR0, addr, 4 );
 }
 

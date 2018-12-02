@@ -30,11 +30,10 @@
  *
  * $Id: clock-arch.h,v 1.2 2006/06/12 08:00:31 adam Exp $
  */
-
 #ifndef __CLOCK_ARCH_H__
 #define __CLOCK_ARCH_H__
 
 typedef int clock_time_t;
-#define CLOCK_CONF_SECOND 1000
 
+#define CLOCK_CONF_SECOND 1000
 #endif /* __CLOCK_ARCH_H__ */

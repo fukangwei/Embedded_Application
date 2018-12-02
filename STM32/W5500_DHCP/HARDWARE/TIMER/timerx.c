@@ -4,7 +4,7 @@
 #include "stm32f10x.h"
 
 unsigned long ms = 0;
-extern unsigned long  dhcp_time;
+extern unsigned long dhcp_time;
 
 void TIM2_IRQHandler ( void ) {
     if ( TIM_GetITStatus ( TIM2, TIM_IT_Update ) != RESET ) {

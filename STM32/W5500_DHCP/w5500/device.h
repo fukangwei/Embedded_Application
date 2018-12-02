@@ -9,11 +9,11 @@
 #define FW_VER_LOW  0
 
 typedef void ( *pFunction ) ( void );
+
 void set_network ( void );
 void write_config_to_eeprom ( void );
 void set_default ( void );
 void reboot ( void );
 void get_config ( void );
 void set_w5500_mac ( void );
-
 #endif

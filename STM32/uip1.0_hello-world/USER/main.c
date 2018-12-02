@@ -8,8 +8,9 @@
 #include "timer.h"
 #include "enc28j60.h"
 
-void uip_polling ( void );
 #define BUF ((struct uip_eth_hdr *)&uip_buf[0])
+
+void uip_polling ( void );
 
 int main ( void ) {
     uip_ipaddr_t ipaddr;

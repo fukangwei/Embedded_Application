@@ -2,7 +2,7 @@
 
 void SPI2_Init ( void ) {
     GPIO_InitTypeDef GPIO_InitStructure;
-    SPI_InitTypeDef  SPI_InitStructure;
+    SPI_InitTypeDef SPI_InitStructure;
     RCC_APB2PeriphClockCmd ( RCC_APB2Periph_GPIOB, ENABLE );
     RCC_APB1PeriphClockCmd ( RCC_APB1Periph_SPI2,  ENABLE );
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
@@ -86,7 +86,7 @@ void SPIx_Init ( void ) {
 }
 
 void SPIx_SetSpeed ( u8 SpeedSet ) {
-    SPI_InitStructure.SPI_BaudRatePrescaler = SpeedSet ;
+    SPI_InitStructure.SPI_BaudRatePrescaler = SpeedSet;
     SPI_Init ( SPI1, &SPI_InitStructure );
     SPI_Cmd ( SPI1, ENABLE );
 }

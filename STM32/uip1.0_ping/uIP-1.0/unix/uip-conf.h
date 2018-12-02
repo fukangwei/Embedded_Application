@@ -51,7 +51,6 @@
  * \author
  *         Adam Dunkels <adam@sics.se>
  */
-
 #ifndef __UIP_CONF_H__
 #define __UIP_CONF_H__
 

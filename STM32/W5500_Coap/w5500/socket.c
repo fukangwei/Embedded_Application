@@ -180,7 +180,7 @@ uint16 sendto ( SOCKET s, const uint8 *buf, uint16 len, uint8 *addr, uint16 port
         ret = len;
     }
 
-    if ( ( ( addr[0] == 0x00 ) && ( addr[1] == 0x00 ) && ( addr[2] == 0x00 ) && ( addr[3] == 0x00 ) ) || ( ( port == 0x00 ) ) ) { //||(ret == 0) )
+    if ( ( ( addr[0] == 0x00 ) && ( addr[1] == 0x00 ) && ( addr[2] == 0x00 ) && ( addr[3] == 0x00 ) ) || ( ( port == 0x00 ) ) ) {
         ret = 0;
     } else {
         IINCHIP_WRITE ( Sn_DIPR0 ( s ), addr[0] );

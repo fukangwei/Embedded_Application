@@ -37,16 +37,12 @@
  * \author
  *         Adam Dunkels <adam@sics.se>
  */
-
 #include "clock-arch.h"
 #include "sys.h"
 
-/*---------------------------------------------------------------------------*/
 extern u32 uip_timer;
 
 clock_time_t
-clock_time(void)
-{
+clock_time ( void ) {
     return uip_timer;
 }
-/*---------------------------------------------------------------------------*/

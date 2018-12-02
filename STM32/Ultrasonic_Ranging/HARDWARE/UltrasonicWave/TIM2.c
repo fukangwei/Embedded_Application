@@ -1,7 +1,7 @@
 #include "TIM2.h"
 
 void TIM2_Configuration ( void ) {
-    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+    TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
     RCC_APB1PeriphClockCmd ( RCC_APB1Periph_TIM2 , ENABLE );
     TIM_DeInit ( TIM2 );
     TIM_TimeBaseStructure.TIM_Period = 65535; /* 自动重装载寄存器周期的值(计数值) */

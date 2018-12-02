@@ -8,9 +8,9 @@ static u8 ENC28J60BANK;
 static u32 NextPacketPtr;
 
 static void ENC28J60_SPI2_Init ( void ) {
-    SPI_InitTypeDef  SPI_InitStructure;
-    GPIO_InitTypeDef  GPIO_InitStructure;
-    RCC_APB1PeriphClockCmd ( RCC_APB1Periph_SPI2,  ENABLE ); /* SPI2时钟使能 */
+    SPI_InitTypeDef SPI_InitStructure;
+    GPIO_InitTypeDef GPIO_InitStructure;
+    RCC_APB1PeriphClockCmd ( RCC_APB1Periph_SPI2, ENABLE ); /* SPI2时钟使能 */
     RCC_APB2PeriphClockCmd (  RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC, ENABLE );
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; /* 推挽输出 */
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; /* IO口速度为50MHz */
@@ -69,8 +69,7 @@ u8 ENC28J60_Read_Op ( u8 op, u8 addr ) { /* 读取ENC28J60寄存器(带操作码)，参数op
     return dat;
 }
 
-/* 读取ENC28J60寄存器(带操作码)，参数op是操作码，addr是寄存器地址，data是参数 */
-void ENC28J60_Write_Op ( u8 op, u8 addr, u8 data ) {
+void ENC28J60_Write_Op ( u8 op, u8 addr, u8 data ) { /* 读取ENC28J60寄存器(带操作码)，参数op是操作码，addr是寄存器地址，data是参数 */
     u8 dat = 0;
     ENC28J60_CS = 0;
     dat = op | ( addr & ADDR_MASK );

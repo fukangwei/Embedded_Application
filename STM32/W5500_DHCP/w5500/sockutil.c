@@ -8,14 +8,16 @@
 char *inet_ntoa ( unsigned long addr ) {
     static char addr_str[32];
     memset ( addr_str, 0, 32 );
-    sprintf ( addr_str, "%d.%d.%d.%d", ( int ) ( addr >> 24 & 0xFF ), ( int ) ( addr >> 16 & 0xFF ), ( int ) ( addr >> 8 & 0xFF ), ( int ) ( addr & 0xFF ) );
+    sprintf ( addr_str, "%d.%d.%d.%d", ( int ) ( addr >> 24 & 0xFF ), ( int ) ( addr >> 16 & 0xFF ),
+            ( int ) ( addr >> 8 & 0xFF ), ( int ) ( addr & 0xFF ) );
     return addr_str;
 }
 
 char *inet_ntoa_pad ( unsigned long addr ) {
     static char addr_str[16];
     memset ( addr_str, 0, 16 );
-    printf ( addr_str, "%03d.%03d.%03d.%03d", ( int ) ( addr >> 24 & 0xFF ), ( int ) ( addr >> 16 & 0xFF ), ( int ) ( addr >> 8 & 0xFF ), ( int ) ( addr & 0xFF ) );
+    printf ( addr_str, "%03d.%03d.%03d.%03d", ( int ) ( addr >> 24 & 0xFF ), ( int ) ( addr >> 16 & 0xFF ),
+           ( int ) ( addr >> 8 & 0xFF ), ( int ) ( addr & 0xFF ) );
     return addr_str;
 }
 

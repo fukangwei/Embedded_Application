@@ -13,7 +13,7 @@ void TIM6_IRQHandler ( void ) {
 }
 
 void TIM6_Int_Init ( u16 arr, u16 psc ) {
-    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+    TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
     NVIC_InitTypeDef NVIC_InitStructure;
     RCC_APB1PeriphClockCmd ( RCC_APB1Periph_TIM6, ENABLE );
     TIM_TimeBaseStructure.TIM_Period = arr;

@@ -36,13 +36,12 @@ typedef uint16 u_int;
 typedef uint32 u_long;
 
 typedef union _un_l2cval {
-    u_long  lVal;
-    u_char  cVal[4];
+    u_long lVal;
+    u_char cVal[4];
 } un_l2cval;
 
 typedef union _un_i2cval {
-    u_int   iVal;
-    u_char  cVal[2];
+    u_int iVal;
+    u_char cVal[2];
 } un_i2cval;
-
 #endif
