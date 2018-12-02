@@ -16,20 +16,15 @@ File        : GUITouch.Conf.h
 Purpose     : Configures touch screen module
 ----------------------------------------------------------------------
 */
-
-
 #ifndef GUITOUCH_CONF_H
 #define GUITOUCH_CONF_H
 
+#define GUI_TOUCH_AD_LEFT   0
+#define GUI_TOUCH_AD_RIGHT  240
+#define GUI_TOUCH_AD_TOP    0
+#define GUI_TOUCH_AD_BOTTOM 320
 
-#define GUI_TOUCH_AD_LEFT     0     
-#define GUI_TOUCH_AD_RIGHT    240    
-#define GUI_TOUCH_AD_TOP      0           //最上边y轴的AD值  
-#define GUI_TOUCH_AD_BOTTOM   320     //最下边y轴的AD值 
-
-
-#define GUI_TOUCH_SWAP_XY    0
-#define GUI_TOUCH_MIRROR_X   0
-#define GUI_TOUCH_MIRROR_Y   0
-
+#define GUI_TOUCH_SWAP_XY  0
+#define GUI_TOUCH_MIRROR_X 0
+#define GUI_TOUCH_MIRROR_Y 0
 #endif /* GUITOUCH_CONF_H */

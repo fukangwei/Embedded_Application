@@ -16,25 +16,22 @@ File        : GUI_TOUCH_X.C
 Purpose     : Config / System dependent externals for GUI
 ---------------------------END-OF-HEADER------------------------------
 */
-
 #include "GUI.h"
 #include "GUI_X.h"
 #include "touch.h"
 
-void GUI_TOUCH_X_ActivateX(void) {
+void GUI_TOUCH_X_ActivateX ( void ) {
 }
 
-void GUI_TOUCH_X_ActivateY(void) {
+void GUI_TOUCH_X_ActivateY ( void ) {
 }
 
-int  GUI_TOUCH_X_MeasureX(void) {
-  Convert_Pos();
-  return Pen_Point.X0;
+int GUI_TOUCH_X_MeasureX ( void ) {
+    Convert_Pos();
+    return Pen_Point.X0;
 }
 
-int  GUI_TOUCH_X_MeasureY(void) {
-  Convert_Pos();
-  return Pen_Point.Y0;
+int GUI_TOUCH_X_MeasureY ( void ) {
+    Convert_Pos();
+    return Pen_Point.Y0;
 }
-
-
