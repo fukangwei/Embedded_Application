@@ -24,5 +24,4 @@ Purpose     : Configures touch screen module
 #define GUI_TOUCH_SWAP_XY  1
 #define GUI_TOUCH_MIRROR_X 0
 #define GUI_TOUCH_MIRROR_Y 1
-
 #endif /* GUITOUCH_CONF_H */

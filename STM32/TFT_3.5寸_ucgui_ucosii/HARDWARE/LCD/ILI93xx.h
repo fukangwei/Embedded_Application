@@ -70,7 +70,7 @@ void LCD_Clear ( u16 Color );
 void LCD_SetCursor ( u16 Xpos, u16 Ypos );
 void LCD_DrawPoint ( u16 x, u16 y );
 void LCD_Fast_DrawPoint ( u16 x, u16 y, u16 color );
-u16  LCD_ReadPoint ( u16 x, u16 y );
+u16 LCD_ReadPoint ( u16 x, u16 y );
 void Draw_Circle ( u16 x0, u16 y0, u8 r );
 void LCD_DrawLine ( u16 x1, u16 y1, u16 x2, u16 y2 );
 void LCD_DrawRectangle ( u16 x1, u16 y1, u16 x2, u16 y2 );

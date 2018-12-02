@@ -20,7 +20,7 @@
 *********************************************************************************************************
 */
 
-#define  OS_CPU_GLOBALS
+#define OS_CPU_GLOBALS
 #include <ucos_ii.h>
 
 /*
@@ -28,29 +28,9 @@
 *                                          LOCAL VARIABLES
 *********************************************************************************************************
 */
-
 #if OS_TMR_EN > 0u
-static  INT16U  OSTmrCtr;
+    static INT16U OSTmrCtr;
 #endif
-
-/*
-*********************************************************************************************************
-*                                          SYS TICK DEFINES
-*********************************************************************************************************
-*/
-/*在stm32f10x_it.c中已经存在SysTickHandler(void)，故将此处的注销掉**修改日期：2014.1.7*/
-
-//#define  OS_CPU_CM3_NVIC_ST_CTRL    (*((volatile INT32U *)0xE000E010uL)) /* SysTick Ctrl & Status Reg. */
-//#define  OS_CPU_CM3_NVIC_ST_RELOAD  (*((volatile INT32U *)0xE000E014uL)) /* SysTick Reload  Value Reg. */
-//#define  OS_CPU_CM3_NVIC_ST_CURRENT (*((volatile INT32U *)0xE000E018uL)) /* SysTick Current Value Reg. */
-//#define  OS_CPU_CM3_NVIC_ST_CAL     (*((volatile INT32U *)0xE000E01CuL)) /* SysTick Cal     Value Reg. */
-//#define  OS_CPU_CM3_NVIC_PRIO_ST    (*((volatile INT8U  *)0xE000ED23uL)) /* SysTick Handler Prio  Reg. */
-
-//#define  OS_CPU_CM3_NVIC_ST_CTRL_COUNT                    0x00010000uL   /* Count flag.                */
-//#define  OS_CPU_CM3_NVIC_ST_CTRL_CLK_SRC                  0x00000004uL   /* Clock Source.              */
-//#define  OS_CPU_CM3_NVIC_ST_CTRL_INTEN                    0x00000002uL   /* Interrupt enable.          */
-//#define  OS_CPU_CM3_NVIC_ST_CTRL_ENABLE                   0x00000001uL   /* Counter mode.              */
-//#define  OS_CPU_CM3_NVIC_PRIO_MIN                               0xFFu    /* Min handler prio.          */
 
 /*
 *********************************************************************************************************
@@ -65,21 +45,19 @@ static  INT16U  OSTmrCtr;
 *********************************************************************************************************
 */
 #if OS_CPU_HOOKS_EN > 0u
-void  OSInitHookBegin (void)
-{
-    INT32U   size;
-    OS_STK  *pstk;
-
-                                                           /* Clear exception stack for stack checking.*/
+void OSInitHookBegin ( void ) {
+    INT32U size;
+    OS_STK *pstk;
+    /* Clear exception stack for stack checking.*/
     pstk = &OS_CPU_ExceptStk[0];
     size = OS_CPU_EXCEPT_STK_SIZE;
-    while (size > 0u) {
+
+    while ( size > 0u ) {
         size--;
-       *pstk++ = (OS_STK)0;
+        *pstk++ = ( OS_STK ) 0;
     }
 
     OS_CPU_ExceptStkBase = &OS_CPU_ExceptStk[OS_CPU_EXCEPT_STK_SIZE - 1u];
-
 #if OS_TMR_EN > 0u
     OSTmrCtr = 0u;
 #endif
@@ -99,8 +77,7 @@ void  OSInitHookBegin (void)
 *********************************************************************************************************
 */
 #if OS_CPU_HOOKS_EN > 0u
-void  OSInitHookEnd (void)
-{
+void OSInitHookEnd ( void ) {
 }
 #endif
 
@@ -116,16 +93,14 @@ void  OSInitHookEnd (void)
 *********************************************************************************************************
 */
 #if OS_CPU_HOOKS_EN > 0u
-void  OSTaskCreateHook (OS_TCB *ptcb)
-{
+void OSTaskCreateHook ( OS_TCB *ptcb ) {
 #if OS_APP_HOOKS_EN > 0u
-    App_TaskCreateHook(ptcb);
+    App_TaskCreateHook ( ptcb );
 #else
-    (void)ptcb;                                  /* Prevent compiler warning                           */
+    ( void ) ptcb; /* Prevent compiler warning */
 #endif
 }
 #endif
-
 
 /*
 *********************************************************************************************************
@@ -139,12 +114,11 @@ void  OSTaskCreateHook (OS_TCB *ptcb)
 *********************************************************************************************************
 */
 #if OS_CPU_HOOKS_EN > 0u
-void  OSTaskDelHook (OS_TCB *ptcb)
-{
+void OSTaskDelHook ( OS_TCB *ptcb ) {
 #if OS_APP_HOOKS_EN > 0u
-    App_TaskDelHook(ptcb);
+    App_TaskDelHook ( ptcb );
 #else
-    (void)ptcb;                                  /* Prevent compiler warning                           */
+    ( void ) ptcb; /* Prevent compiler warning */
 #endif
 }
 #endif
@@ -162,8 +136,7 @@ void  OSTaskDelHook (OS_TCB *ptcb)
 *********************************************************************************************************
 */
 #if OS_CPU_HOOKS_EN > 0u
-void  OSTaskIdleHook (void)
-{
+void OSTaskIdleHook ( void ) {
 #if OS_APP_HOOKS_EN > 0u
     App_TaskIdleHook();
 #endif
@@ -184,12 +157,11 @@ void  OSTaskIdleHook (void)
 */
 
 #if OS_CPU_HOOKS_EN > 0u
-void  OSTaskReturnHook (OS_TCB  *ptcb)
-{
+void OSTaskReturnHook ( OS_TCB  *ptcb ) {
 #if OS_APP_HOOKS_EN > 0u
-    App_TaskReturnHook(ptcb);
+    App_TaskReturnHook ( ptcb );
 #else
-    (void)ptcb;
+    ( void ) ptcb;
 #endif
 }
 #endif
@@ -204,10 +176,8 @@ void  OSTaskReturnHook (OS_TCB  *ptcb)
 * Arguments  : none
 *********************************************************************************************************
 */
-
 #if OS_CPU_HOOKS_EN > 0u
-void  OSTaskStatHook (void)
-{
+void OSTaskStatHook ( void ) {
 #if OS_APP_HOOKS_EN > 0u
     App_TaskStatHook();
 #endif
@@ -242,36 +212,29 @@ void  OSTaskStatHook (void)
 *              2) All tasks run in Thread mode, using process stack.
 *********************************************************************************************************
 */
-
-OS_STK *OSTaskStkInit (void (*task)(void *p_arg), void *p_arg, OS_STK *ptos, INT16U opt)
-{
+OS_STK *OSTaskStkInit ( void ( *task ) ( void *p_arg ), void *p_arg, OS_STK *ptos, INT16U opt ) {
     OS_STK *stk;
-
-
-    (void)opt;                                   /* 'opt' is not used, prevent warning                 */
-    stk       = ptos;                            /* Load stack pointer                                 */
-
+    ( void ) opt;                                /* 'opt' is not used, prevent warning                 */
+    stk = ptos;                                  /* Load stack pointer                                 */
                                                  /* Registers stacked as if auto-saved on exception    */
-    *(stk)    = (INT32U)0x01000000uL;            /* xPSR                                               */
-    *(--stk)  = (INT32U)task;                    /* Entry Point                                        */
-    *(--stk)  = (INT32U)OS_TaskReturn;           /* R14 (LR)                                           */
-    *(--stk)  = (INT32U)0x12121212uL;            /* R12                                                */
-    *(--stk)  = (INT32U)0x03030303uL;            /* R3                                                 */
-    *(--stk)  = (INT32U)0x02020202uL;            /* R2                                                 */
-    *(--stk)  = (INT32U)0x01010101uL;            /* R1                                                 */
-    *(--stk)  = (INT32U)p_arg;                   /* R0 : argument                                      */
-
+    * ( stk )    = ( INT32U ) 0x01000000uL;      /* xPSR                                               */
+    * ( --stk )  = ( INT32U ) task;              /* Entry Point                                        */
+    * ( --stk )  = ( INT32U ) OS_TaskReturn;     /* R14 (LR)                                           */
+    * ( --stk )  = ( INT32U ) 0x12121212uL;      /* R12                                                */
+    * ( --stk )  = ( INT32U ) 0x03030303uL;      /* R3                                                 */
+    * ( --stk )  = ( INT32U ) 0x02020202uL;      /* R2                                                 */
+    * ( --stk )  = ( INT32U ) 0x01010101uL;      /* R1                                                 */
+    * ( --stk )  = ( INT32U ) p_arg;             /* R0 : argument                                      */
                                                  /* Remaining registers saved on process stack         */
-    *(--stk)  = (INT32U)0x11111111uL;            /* R11                                                */
-    *(--stk)  = (INT32U)0x10101010uL;            /* R10                                                */
-    *(--stk)  = (INT32U)0x09090909uL;            /* R9                                                 */
-    *(--stk)  = (INT32U)0x08080808uL;            /* R8                                                 */
-    *(--stk)  = (INT32U)0x07070707uL;            /* R7                                                 */
-    *(--stk)  = (INT32U)0x06060606uL;            /* R6                                                 */
-    *(--stk)  = (INT32U)0x05050505uL;            /* R5                                                 */
-    *(--stk)  = (INT32U)0x04040404uL;            /* R4                                                 */
-
-    return (stk);
+    * ( --stk )  = ( INT32U ) 0x11111111uL;      /* R11                                                */
+    * ( --stk )  = ( INT32U ) 0x10101010uL;      /* R10                                                */
+    * ( --stk )  = ( INT32U ) 0x09090909uL;      /* R9                                                 */
+    * ( --stk )  = ( INT32U ) 0x08080808uL;      /* R8                                                 */
+    * ( --stk )  = ( INT32U ) 0x07070707uL;      /* R7                                                 */
+    * ( --stk )  = ( INT32U ) 0x06060606uL;      /* R6                                                 */
+    * ( --stk )  = ( INT32U ) 0x05050505uL;      /* R5                                                 */
+    * ( --stk )  = ( INT32U ) 0x04040404uL;      /* R4                                                 */
+    return ( stk );
 }
 
 /*
@@ -290,8 +253,7 @@ OS_STK *OSTaskStkInit (void (*task)(void *p_arg), void *p_arg, OS_STK *ptos, INT
 *********************************************************************************************************
 */
 #if (OS_CPU_HOOKS_EN > 0u) && (OS_TASK_SW_HOOK_EN > 0u)
-void  OSTaskSwHook (void)
-{
+void OSTaskSwHook ( void ) {
 #if OS_APP_HOOKS_EN > 0u
     App_TaskSwHook();
 #endif
@@ -310,12 +272,11 @@ void  OSTaskSwHook (void)
 *********************************************************************************************************
 */
 #if OS_CPU_HOOKS_EN > 0u
-void  OSTCBInitHook (OS_TCB *ptcb)
-{
+void OSTCBInitHook ( OS_TCB *ptcb ) {
 #if OS_APP_HOOKS_EN > 0u
-    App_TCBInitHook(ptcb);
+    App_TCBInitHook ( ptcb );
 #else
-    (void)ptcb;                                  /* Prevent compiler warning                           */
+    ( void ) ptcb; /* Prevent compiler warning */
 #endif
 }
 #endif
@@ -332,71 +293,18 @@ void  OSTCBInitHook (OS_TCB *ptcb)
 *********************************************************************************************************
 */
 #if (OS_CPU_HOOKS_EN > 0u) && (OS_TIME_TICK_HOOK_EN > 0u)
-void  OSTimeTickHook (void)
-{
+void OSTimeTickHook ( void ) {
 #if OS_APP_HOOKS_EN > 0u
     App_TimeTickHook();
 #endif
-
 #if OS_TMR_EN > 0u
     OSTmrCtr++;
-    if (OSTmrCtr >= (OS_TICKS_PER_SEC / OS_TMR_CFG_TICKS_PER_SEC)) {
+
+    if ( OSTmrCtr >= ( OS_TICKS_PER_SEC / OS_TMR_CFG_TICKS_PER_SEC ) ) {
         OSTmrCtr = 0;
         OSTmrSignal();
     }
+
 #endif
 }
 #endif
-
-/*
-*********************************************************************************************************
-*                                          SYS TICK HANDLER
-*
-* Description: Handle the system tick (SysTick) interrupt, which is used to generate the uC/OS-II tick
-*              interrupt.
-*
-* Arguments  : none.
-*
-* Note(s)    : 1) This function MUST be placed on entry 15 of the Cortex-M3 vector table.
-*********************************************************************************************************
-*/
- /*在stm32f10x_it.c中已经存在SysTickHandler(void)，故将此处的注销掉**修改日期：2014.1.7*/                                                                                                             
-//void  OS_CPU_SysTickHandler (void)
-//{
-//    OS_CPU_SR  cpu_sr;
-
-
-//    OS_ENTER_CRITICAL();                         /* Tell uC/OS-II that we are starting an ISR          */
-    //OSIntNesting++;
-    //OS_EXIT_CRITICAL();
-
-    //OSTimeTick();                                /* Call uC/OS-II's OSTimeTick()                       */
-
-    //OSIntExit();                                 /* Tell uC/OS-II that we are leaving the ISR          */
-//}
-
-
-/*
-*********************************************************************************************************
-*                                          INITIALIZE SYS TICK
-*
-* Description: Initialize the SysTick.
-*
-* Arguments  : cnts          is the number of SysTick counts between two OS tick interrupts.
-*
-* Note(s)    : 1) This function MUST be called after OSStart() & after processor initialization.
-*********************************************************************************************************
-*/
-
-/*在stm32f10x_it.c中已经存在SysTickHandler(void)，故将此处的注销掉**修改日期：2014.1.7*/
-
-//void  OS_CPU_SysTickInit (INT32U  cnts)
-//{
-//    OS_CPU_CM3_NVIC_ST_RELOAD = cnts - 1u;
-                                                 /* Set prio of SysTick handler to min prio.           */
-//    OS_CPU_CM3_NVIC_PRIO_ST   = OS_CPU_CM3_NVIC_PRIO_MIN;
-                                                 /* Enable timer.                                      */
-//    OS_CPU_CM3_NVIC_ST_CTRL  |= OS_CPU_CM3_NVIC_ST_CTRL_CLK_SRC | OS_CPU_CM3_NVIC_ST_CTRL_ENABLE;
-                                                 /* Enable timer interrupt.                            */
-//    OS_CPU_CM3_NVIC_ST_CTRL  |= OS_CPU_CM3_NVIC_ST_CTRL_INTEN;
-//}
