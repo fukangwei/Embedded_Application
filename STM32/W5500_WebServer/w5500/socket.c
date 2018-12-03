@@ -222,7 +222,7 @@ uint16 recvfrom ( SOCKET s, uint8 *buf, uint16 len, uint8 *addr, uint16 *port ) 
         addrbsb = ( uint32 ) ( ptr << 8 ) +  ( s << 5 ) + 0x18;
 
         switch ( IINCHIP_READ ( Sn_MR ( s ) ) & 0x07 ) {
-            case Sn_MR_UDP :
+            case Sn_MR_UDP:
                 wiz_read_buf ( addrbsb, head, 0x08 );
                 ptr += 8;
                 /* read peer's IP address, port number */
@@ -241,7 +241,7 @@ uint16 recvfrom ( SOCKET s, uint8 *buf, uint16 len, uint8 *addr, uint16 *port ) 
                 IINCHIP_WRITE ( Sn_RX_RD1 ( s ), ( uint8 ) ( ptr & 0x00ff ) );
                 break;
 
-            case Sn_MR_IPRAW :
+            case Sn_MR_IPRAW:
                 wiz_read_buf ( addrbsb, head, 0x06 );
                 ptr += 6;
                 addr[0] = head[0];
@@ -257,7 +257,7 @@ uint16 recvfrom ( SOCKET s, uint8 *buf, uint16 len, uint8 *addr, uint16 *port ) 
                 IINCHIP_WRITE ( Sn_RX_RD1 ( s ), ( uint8 ) ( ptr & 0x00ff ) );
                 break;
 
-            case Sn_MR_MACRAW :
+            case Sn_MR_MACRAW:
                 wiz_read_buf ( addrbsb, head, 0x02 );
                 ptr += 2;
                 data_len = head[0];
@@ -276,7 +276,7 @@ uint16 recvfrom ( SOCKET s, uint8 *buf, uint16 len, uint8 *addr, uint16 *port ) 
                 IINCHIP_WRITE ( Sn_RX_RD1 ( s ), ( uint8 ) ( ptr & 0x00ff ) );
                 break;
 
-            default :
+            default:
                 break;
         }
 

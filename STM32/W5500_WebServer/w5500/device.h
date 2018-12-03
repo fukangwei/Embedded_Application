@@ -8,7 +8,7 @@
 #define FW_VER_HIGH 1
 #define FW_VER_LOW  0
 
-typedef  void ( *pFunction ) ( void );
+typedef void ( *pFunction ) ( void );
 
 void set_network ( void );
 void write_config_to_eeprom ( void );

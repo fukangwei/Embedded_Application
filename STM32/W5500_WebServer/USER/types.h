@@ -28,7 +28,6 @@ typedef int int16;
 typedef unsigned short uint16;
 typedef long int32;
 typedef unsigned long uint32;
-
 typedef uint8 u_char;
 typedef uint8 SOCKET;
 typedef uint16 u_short;
@@ -44,5 +43,4 @@ typedef union _un_i2cval {
     u_int iVal;
     u_char cVal[2];
 } un_i2cval;
-
 #endif

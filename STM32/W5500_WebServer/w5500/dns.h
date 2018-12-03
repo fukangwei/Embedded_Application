@@ -74,6 +74,6 @@ struct dhdr {
 };
 
 extern uint8 DNS_GET_IP[4];
-uint8 dns_query ( uint8 s, uint8 *name );
 
+uint8 dns_query ( uint8 s, uint8 *name );
 #endif

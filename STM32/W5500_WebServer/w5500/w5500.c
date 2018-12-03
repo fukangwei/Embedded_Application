@@ -36,7 +36,7 @@ void IINCHIP_CSon ( void ) {
     WIZ_CS ( HIGH );
 }
 
-u8  IINCHIP_SpiSendData ( uint8 dat ) {
+u8 IINCHIP_SpiSendData ( uint8 dat ) {
     return ( SPIx_ReadWriteByte ( dat ) );
 }
 

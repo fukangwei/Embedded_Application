@@ -3,7 +3,7 @@
 
 #define DEBUG_HTTP
 
-extern CONFIG_MSG  ConfigMsg;
+extern CONFIG_MSG ConfigMsg;
 extern char tx_buf[MAX_URI_SIZE];
 extern char rx_buf[MAX_URI_SIZE];
 
@@ -86,8 +86,10 @@ void proc_http ( SOCKET s, uint8 *buf ) {
 
             if ( strcmp ( name, "/index.htm" ) == 0 || strcmp ( name, "/" ) == 0 || ( strcmp ( name, "/index.html" ) == 0 ) ) {
                 memset ( tx_buf, 0, MAX_URI_SIZE );
-                sprintf ( tx_buf, "<html><head><title>Hello!WIZnet!</title></head><body><h1 align='center'>Hello!Fukangwei!</h1></body></html>" );
-                sprintf ( ( char * ) http_response, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length:%d\r\n\r\n%s", strlen ( tx_buf ), tx_buf );
+                sprintf ( tx_buf, "<html><head><title>Hello!WIZnet!</title></head><body> \
+                <h1 align='center'>Hello!Fukangwei!</h1></body></html>" );
+                sprintf ( ( char * ) http_response, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n \
+                Content-Length:%d\r\n\r\n%s", strlen ( tx_buf ), tx_buf );
                 send ( s, ( u_char * ) http_response, strlen ( ( char const * ) http_response ) );
             }
 

@@ -1,7 +1,7 @@
 #ifndef __HTTPD_H__
 #define __HTTPD_H__
-/* Define Constants and fucntions associated with HTTP protocol */
 
+/* Define Constants and fucntions associated with HTTP protocol */
 #define HTTP_SERVER_PORT 80 /* Http server well-known port number */
 
 /* HTTP Method */
@@ -47,8 +47,8 @@
     #define RES_PDFHEAD_OK "HTTP/1.1 200 OK\r\nContent-Type: application/pdf\r\nContent-Length: "
 #endif
 
-#define DOUT_RES_1  "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 1\r\n\r\n1"
-#define DOUT_RES_0  "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 1\r\n\r\n0"
+#define DOUT_RES_1 "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 1\r\n\r\n1"
+#define DOUT_RES_0 "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 1\r\n\r\n0"
 
 #define MAX_URI_SIZE 1460 /* (TX_RX_MAX_BUF_SIZE/2 - sizeof(char)*2) */
 

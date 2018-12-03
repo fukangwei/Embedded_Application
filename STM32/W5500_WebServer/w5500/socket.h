@@ -18,5 +18,4 @@ extern uint16 recvfrom ( SOCKET s, uint8 *buf, uint16 len, uint8 *addr, uint16  
     uint16 macraw_send ( const uint8 *buf, uint16 len );
     uint16 macraw_recv ( uint8 *buf, uint16 len );
 #endif
-
 #endif

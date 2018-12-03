@@ -45,7 +45,7 @@ void Delay_us ( uint32 time_us ) {
     u32 temp;
     SysTick->LOAD = time_us * fac_us;
     SysTick->VAL = 0x00;
-    SysTick->CTRL = 0x01 ;
+    SysTick->CTRL = 0x01;
 
     do {
         temp = SysTick->CTRL;
