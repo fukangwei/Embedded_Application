@@ -11,47 +11,35 @@
 
 #define DHCP_DEBUG
 
-uint8  *SRC_MAC_ADDR   =  EXTERN_DHCP_MAC;    // Local MAC address
-uint8   *GET_SN_MASK    = EXTERN_DHCP_SN;     // Subnet mask received from the DHCP server
-uint8   *GET_GW_IP      = EXTERN_DHCP_GW;     // Gateway ip address received from the DHCP server
-uint8   *GET_DNS_IP     = EXTERN_DHCP_DNS;    // DNS server ip address received from the DHCP server
-uint8   *DHCP_HOST_NAME = EXTERN_DHCP_NAME;   // HOST NAME
-uint8   *GET_SIP        = EXTERN_DHCP_SIP;    // Local ip address received from the DHCP server
-uint8    DHCP_SIP[4] = {0,};      // DNS server ip address is discovered
-uint8    DHCP_REAL_SIP[4] = {0,}; // For extract my DHCP server in a few DHCP servers
-uint8    OLD_SIP[4];        // Previous local ip address received from DHCP server
-uint8  dhcp_state       = STATE_DHCP_READY;          // DHCP client status
-uint8  dhcp_retry_count = 0;    // retry count
-uint8  DHCP_timeout     = 0;        // DHCP Timeout flag
-uint32  dhcp_lease_time;    // Leased time
-uint32  dhcp_time       = 0;
-uint32  next_dhcp_time  = 0;      // DHCP Time 1s
-uint32  dhcp_tick_cnt   = 0;                    // 1ms
-uint8  DHCP_timer;
-uint32  DHCP_XID        = DEFAULT_XID;
+uint8 *SRC_MAC_ADDR   = EXTERN_DHCP_MAC;  /* Local MAC address */
+uint8 *GET_SN_MASK    = EXTERN_DHCP_SN;   /* Subnet mask received from the DHCP server */
+uint8 *GET_GW_IP      = EXTERN_DHCP_GW;   /* Gateway ip address received from the DHCP server */
+uint8 *GET_DNS_IP     = EXTERN_DHCP_DNS;  /* DNS server ip address received from the DHCP server */
+uint8 *DHCP_HOST_NAME = EXTERN_DHCP_NAME; /* HOST NAME */
+uint8 *GET_SIP        = EXTERN_DHCP_SIP;  /* Local ip address received from the DHCP server */
+uint8 DHCP_SIP[4] = {0,}; /* DNS server ip address is discovered */
+uint8 DHCP_REAL_SIP[4] = {0,}; /* For extract my DHCP server in a few DHCP servers */
+uint8 OLD_SIP[4]; /* Previous local ip address received from DHCP server */
+uint8 dhcp_state       = STATE_DHCP_READY; /* DHCP client status */
+uint8 dhcp_retry_count = 0; /* retry count */
+uint8 DHCP_timeout     = 0; /* DHCP Timeout flag */
+uint32 dhcp_lease_time; /* Leased time */
+uint32 dhcp_time       = 0;
+uint32 next_dhcp_time  = 0; /* DHCP Time 1s */
+uint32 dhcp_tick_cnt   = 0; /* 1ms */
+uint8 DHCP_timer;
+uint32  DHCP_XID = DEFAULT_XID;
 uint8 EXTERN_DHCPBUF[1024];
-RIP_MSG  *pRIPMSG = ( RIP_MSG * ) EXTERN_DHCPBUF;     // Pointer for the DHCP message
+RIP_MSG *pRIPMSG = ( RIP_MSG * ) EXTERN_DHCPBUF; /* Pointer for the DHCP message */
+void send_DHCP_DISCOVER ( void ); /* Send the discovery message to the DHCP server */
+void send_DHCP_REQUEST ( void ); /* Send the request message to the DHCP server */
+void send_DHCP_RELEASE_DECLINE ( char msgtype ); /* send the release message to the DHCP server */
+uint8 parseDHCPMSG ( uint16 length ); /* Receive the message from DHCP server and parse it */
+void reset_DHCP_time ( void ); /* Initialize DHCP Timer */
+void DHCP_timer_handler ( void ); /* DHCP Timer handler */
+uint8 check_leasedIP ( void ); /* Check the leased IP address */
+void check_DHCP_Timeout ( void ); /* Check DHCP Timeout */
 
-
-void  send_DHCP_DISCOVER ( void ); // Send the discovery message to the DHCP server
-void  send_DHCP_REQUEST ( void ); // Send the request message to the DHCP server
-void  send_DHCP_RELEASE_DECLINE ( char msgtype ); // send the release message to the DHCP server
-uint8 parseDHCPMSG ( uint16 length ); // Receive the message from DHCP server and parse it.
-void  reset_DHCP_time ( void );     // Initialize DHCP Timer
-void  DHCP_timer_handler ( void );  // DHCP Timer handler
-uint8 check_leasedIP ( void );      // Check the leased IP address
-void  check_DHCP_Timeout ( void );  // Check DHCP Timeout
-
-/*
-*********************************************************************************************************
-*              SEND DHCP DISCOVER
-*
-* Description: reset timeout value and retry count
-* Arguments  :
-* Returns    :
-* Note       :
-*********************************************************************************************************
-*/
 void reset_DHCP_time ( void ) {
     dhcp_time = 0;
     dhcp_tick_cnt = 0;
@@ -59,16 +47,6 @@ void reset_DHCP_time ( void ) {
     dhcp_retry_count = 0;
 }
 
-/*
-*********************************************************************************************************
-*              SEND DHCP DISCOVER
-*
-* Description: This function sends DHCP DISCOVER message to DHCP server.
-* Arguments  : s - is a socket number.
-* Returns    : None.
-* Note       :
-*********************************************************************************************************
-*/
 void send_DHCP_DISCOVER ( void ) {
     uint8 ip[4] = {255, 255, 255, 255};
     uint16 i = 0;
@@ -92,11 +70,11 @@ void send_DHCP_DISCOVER ( void ) {
     pRIPMSG->OPT[i++] = ( uint8 ) ( ( MAGIC_COOKIE >> 16 ) & 0xFF );
     pRIPMSG->OPT[i++] = ( uint8 ) ( ( MAGIC_COOKIE >> 8 ) & 0xFF );
     pRIPMSG->OPT[i++] = ( uint8 ) ( MAGIC_COOKIE & 0xFF );
-    /* Option Request Param. */
+    /* Option Request Param */
     pRIPMSG->OPT[i++] = dhcpMessageType;
     pRIPMSG->OPT[i++] = 0x01;
     pRIPMSG->OPT[i++] = DHCP_DISCOVER;
-    // Client identifier
+    /* Client identifier */
     pRIPMSG->OPT[i++] = dhcpClientIdentifier;
     pRIPMSG->OPT[i++] = 0x07;
     pRIPMSG->OPT[i++] = 0x01;
@@ -106,9 +84,7 @@ void send_DHCP_DISCOVER ( void ) {
     pRIPMSG->OPT[i++] = SRC_MAC_ADDR[3];
     pRIPMSG->OPT[i++] = SRC_MAC_ADDR[4];
     pRIPMSG->OPT[i++] = SRC_MAC_ADDR[5];
-    // host name
     pRIPMSG->OPT[i++] = hostName;
-    // set the host name
     sprintf ( ( char * ) host_name, "%.4s-%02X%02X%02X", DEVICE_ID, SRC_MAC_ADDR[3], SRC_MAC_ADDR[4], SRC_MAC_ADDR[5] );
     pRIPMSG->OPT[i++] = ( uint8 ) strlen ( ( char * ) host_name );
     strcpy ( ( char * ) ( & ( pRIPMSG->OPT[i] ) ), ( char * ) host_name );
@@ -122,30 +98,16 @@ void send_DHCP_DISCOVER ( void ) {
     pRIPMSG->OPT[i++] = dhcpT1value;
     pRIPMSG->OPT[i++] = dhcpT2value;
     pRIPMSG->OPT[i++] = endOption;
-    /* send broadcasting packet */
-    //printf("send dhcp discover %s\r\n",EXTERN_DHCPBUF);
-    //for(uint8 i=0; i<3; i++)
-    //Delay_ms(800);
     sendto ( SOCK_DHCP, ( uint8 * ) pRIPMSG, sizeof ( RIP_MSG ), ip, DHCP_SERVER_PORT );
 #ifdef DHCP_DEBUG
     printf ( "sent DHCP_DISCOVER\r\n" );
 #endif
 }
 
-/*
-*********************************************************************************************************
-*              SEND DHCP REQUEST
-*
-* Description: This function sends DHCP REQUEST message to DHCP server.
-* Arguments  : s - is a socket number.
-* Returns    : None.
-* Note       :
-*********************************************************************************************************
-*/
 void send_DHCP_REQUEST ( void ) {
-    uint8  ip[4];
+    uint8 ip[4];
     uint16 i = 0;
-    uint8  host_name[12];
+    uint8 host_name[12];
     memset ( ( void * ) pRIPMSG, 0, sizeof ( RIP_MSG ) );
     pRIPMSG->op = DHCP_BOOTREQUEST;
     pRIPMSG->htype = DHCP_HTYPE10MB;
@@ -167,7 +129,7 @@ void send_DHCP_REQUEST ( void ) {
     pRIPMSG->OPT[i++] = ( uint8 ) ( ( MAGIC_COOKIE >> 16 ) & 0xFF );
     pRIPMSG->OPT[i++] = ( uint8 ) ( ( MAGIC_COOKIE >> 8 ) & 0xFF );
     pRIPMSG->OPT[i++] = ( uint8 ) ( MAGIC_COOKIE & 0xFF );
-    /* Option Request Param. */
+    /* Option Request Param */
     pRIPMSG->OPT[i++] = dhcpMessageType;
     pRIPMSG->OPT[i++] = 0x01;
     pRIPMSG->OPT[i++] = DHCP_REQUEST;
@@ -225,21 +187,9 @@ void send_DHCP_REQUEST ( void ) {
 #endif
 }
 
-
-/*
-*********************************************************************************************************
-*              SEND DHCP RELEASE
-*
-* Description: This function sends DHCP RELEASE message to DHCP server.
-* Arguments  : s - is a socket number.
-*              msgtype - 0 : RELEASE, Not Zero : DECLINE
-* Returns    : None.
-* Note       :
-*********************************************************************************************************
-*/
 void send_DHCP_RELEASE_DECLINE ( char msgtype ) {
     uint16 i = 0;
-    uint8  ip[4];
+    uint8 ip[4];
     memset ( ( void * ) pRIPMSG, 0, sizeof ( RIP_MSG ) );
     pRIPMSG->op = DHCP_BOOTREQUEST;
     pRIPMSG->htype = DHCP_HTYPE10MB;
@@ -249,12 +199,10 @@ void send_DHCP_RELEASE_DECLINE ( char msgtype ) {
     pRIPMSG->secs = htons ( DHCP_SECS );
     pRIPMSG->flags = 0;
     memcpy ( pRIPMSG->chaddr, SRC_MAC_ADDR, 6 );
-    /* MAGIC_COOKIE */
     pRIPMSG->OPT[i++] = ( uint8 ) ( ( MAGIC_COOKIE >> 24 ) & 0xFF );
     pRIPMSG->OPT[i++] = ( uint8 ) ( ( MAGIC_COOKIE >> 16 ) & 0xFF );
     pRIPMSG->OPT[i++] = ( uint8 ) ( ( MAGIC_COOKIE >> 8 ) & 0xFF );
     pRIPMSG->OPT[i++] = ( uint8 ) ( MAGIC_COOKIE & 0xFF );
-    /* Option Request Param. */
     pRIPMSG->OPT[i++] = dhcpMessageType;
     pRIPMSG->OPT[i++] = 0x01;
     pRIPMSG->OPT[i++] = ( ( !msgtype ) ? DHCP_RELEASE : DHCP_DECLINE );
@@ -303,17 +251,6 @@ void send_DHCP_RELEASE_DECLINE ( char msgtype ) {
     sendto ( SOCK_DHCP, ( uint8 * ) pRIPMSG, sizeof ( RIP_MSG ), ip, DHCP_SERVER_PORT );
 }
 
-/*
-*********************************************************************************************************
-*              PARSE REPLY MSG
-*
-* Description: This function parses the reply message from DHCP server.
-* Arguments  : s      - is a socket number.
-*              length - is a size data to receive.
-* Returns    : success - return type, fail - 0
-* Note       :
-*********************************************************************************************************
-*/
 uint8 parseDHCPMSG ( uint16 length ) {
     uint8 svr_addr[6];
     uint16 svr_port;
@@ -461,19 +398,9 @@ uint8 parseDHCPMSG ( uint16 length ) {
     return 0;
 }
 
-/*
-*********************************************************************************************************
-*              CHECK DHCP STATE
-*
-* Description: This function checks the state of DHCP.
-* Arguments  : None.
-* Returns    : None.
-* Note       :
-*********************************************************************************************************
-*/
 uint8 check_DHCP_state ( SOCKET s ) {
     uint16 len;
-    uint8  type;
+    uint8 type;
     type = 0;
 
     if ( getSn_SR ( s ) != SOCK_CLOSED ) {
@@ -606,16 +533,6 @@ uint8 check_DHCP_state ( SOCKET s ) {
     return DHCP_RET_NONE;
 }
 
-/*
-*********************************************************************************************************
-*              CHECK TIMEOUT
-*
-* Description: This function checks the timeout of DHCP in each state.
-* Arguments  : None.
-* Returns    : None.
-* Note       :
-*********************************************************************************************************
-*/
 void check_DHCP_Timeout ( void ) {
     if ( dhcp_retry_count < MAX_DHCP_RETRY ) {
         if ( dhcp_time > next_dhcp_time ) {
@@ -660,14 +577,6 @@ void check_DHCP_Timeout ( void ) {
     }
 }
 
-/*
-*********************************************************************************************************
-* Description: check if a leased IP is valid
-* Arguments  : None.
-* Returns    : None.
-* Note       :
-*********************************************************************************************************
-*/
 uint8 check_leasedIP ( void ) {
 #ifdef DHCP_DEBUG
     printf ( "<Check the IP Conflict %d.%d.%d.%d: ", GET_SIP[0], GET_SIP[1], GET_SIP[2], GET_SIP[3] );
@@ -687,17 +596,6 @@ uint8 check_leasedIP ( void ) {
     return 1;
 }
 
-/*
-*********************************************************************************************************
-*
-*
-* Description: timer interrupt handler(For checking dhcp lease time).
-* Arguments  : irq - interrupt offset
-*              p   - pointer to parameter
-* Returns    : None.
-* Note       : Increase 'my_time' each one second.
-*********************************************************************************************************
-*/
 void DHCP_timer_handler ( void ) {
     if ( dhcp_tick_cnt++ > 1000 ) {
         dhcp_tick_cnt = 0;
@@ -705,19 +603,6 @@ void DHCP_timer_handler ( void ) {
     }
 }
 
-/*
-*********************************************************************************************************
-*
-*
-* Description: Initialize the DHCP client
-* Arguments  : s - Socket number for the DHCP client
-               ip_update - handler called when the leased IP address is updated
-               ip_conflict - handler called when the leased IP address is conflict
-*              p   - pointer to parameter
-* Returns    : None.
-* Note       :
-*********************************************************************************************************
-*/
 void init_dhcp_client ( void ) {
     uint8 txsize[MAX_SOCK_NUM] = {2, 2, 2, 2, 2, 2, 2, 2};
     uint8 rxsize[MAX_SOCK_NUM] = {2, 2, 2, 2, 2, 2, 2, 2};

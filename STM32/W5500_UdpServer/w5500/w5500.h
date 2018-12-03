@@ -96,8 +96,8 @@
 #define Sn_MSSR0(ch)  (0x001208 + (ch << 5))
 #define Sn_MSSR1(ch)  (0x001308 + (ch << 5))
 
-#define Sn_TOS(ch) (0x001508 + (ch << 5)) /* IP Type of Service(TOS) Register */
-#define Sn_TTL(ch) (0x001608 + (ch << 5)) /* IP Time to live(TTL) Register */
+#define Sn_TOS(ch)        (0x001508 + (ch << 5)) /* IP Type of Service(TOS) Register */
+#define Sn_TTL(ch)        (0x001608 + (ch << 5)) /* IP Time to live(TTL) Register */
 #define Sn_RXMEM_SIZE(ch) (0x001E08 + (ch << 5)) /* Receive memory size reigster */
 #define Sn_TXMEM_SIZE(ch) (0x001F08 + (ch << 5)) /* Transmit memory size reigster */
 
