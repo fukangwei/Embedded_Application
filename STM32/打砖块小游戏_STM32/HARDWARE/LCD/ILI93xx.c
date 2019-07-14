@@ -2038,7 +2038,7 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x52, 0x0000 ); //���ò������ڵ�Y�Ὺʼ��
         LCD_WriteReg ( 0x53, 0x013F ); //���ò������ڵ�Y�������
         LCD_WriteReg ( 0x60, 0x2700 ); //Driver Output Control
-        //������Ļ�ĵ����Լ�ɨ�����ʼ��
+
         LCD_WriteReg ( 0x61, 0x0001 ); //Driver Output Control
         LCD_WriteReg ( 0x6A, 0x0000 ); //Vertical Scroll Control
         LCD_WriteReg ( 0x80, 0x0000 ); //Display Position �C Partial Display 1
@@ -2115,7 +2115,7 @@ void LCD_Init ( void ) {
 
         LCD_WriteReg ( 0x0001, 0x0100 );
         LCD_WriteReg ( 0x0002, 0x0700 );
-        LCD_WriteReg ( 0x0003, 0x1038 ); //ɨ�跽�� ��->��  ��->��
+        LCD_WriteReg ( 0x0003, 0x1038 );
         LCD_WriteReg ( 0x0004, 0x0000 );
         LCD_WriteReg ( 0x000C, 0x0000 );
         LCD_WriteReg ( 0x000F, 0x0000 );
@@ -2183,8 +2183,7 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0060, 0x2700 );
         LCD_WriteReg ( 0x0061, 0x0001 );
         LCD_WriteReg ( 0x006a, 0x0000 );
-        //LCD_WriteReg(0x0080,0x0000);
-        //LCD_WriteReg(0x0081,0x0000);
+
         LCD_WriteReg ( 0x0090, 0X0011 );
         LCD_WriteReg ( 0x0092, 0x0600 );
         LCD_WriteReg ( 0x0093, 0x0402 );
@@ -2222,8 +2221,6 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0037, 0x0703 );
         LCD_WriteReg ( 0x0038, 0x0001 );
         LCD_WriteReg ( 0x0039, 0x0004 );
-
-
 
         LCD_WriteReg ( 0x0090, 0x0015 ); //80Hz
         LCD_WriteReg ( 0x0010, 0X0410 ); //BT,AP
@@ -2295,26 +2292,26 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0023, 0x0000 );
         LCD_WriteReg ( 0x0024, 0x0000 );
         LCD_WriteReg ( 0x0025, 0x8000 );
-        LCD_WriteReg ( 0x004f, 0 );    //����ַ0
-        LCD_WriteReg ( 0x004e, 0 );    //����ַ0
-    } else if ( lcddev.id == 0x4531 ) { //OK |/|/|
+        LCD_WriteReg ( 0x004f, 0 );
+        LCD_WriteReg ( 0x004e, 0 );
+    } else if ( lcddev.id == 0x4531 ) {
         LCD_WriteReg ( 0X00, 0X0001 );
         delay_ms ( 10 );
         LCD_WriteReg ( 0X10, 0X1628 );
-        LCD_WriteReg ( 0X12, 0X000e ); //0x0006
+        LCD_WriteReg ( 0X12, 0X000e );
         LCD_WriteReg ( 0X13, 0X0A39 );
         delay_ms ( 10 );
         LCD_WriteReg ( 0X11, 0X0040 );
         LCD_WriteReg ( 0X15, 0X0050 );
         delay_ms ( 10 );
-        LCD_WriteReg ( 0X12, 0X001e ); //16
+        LCD_WriteReg ( 0X12, 0X001e );
         delay_ms ( 10 );
         LCD_WriteReg ( 0X10, 0X1620 );
         LCD_WriteReg ( 0X13, 0X2A39 );
         delay_ms ( 10 );
         LCD_WriteReg ( 0X01, 0X0100 );
         LCD_WriteReg ( 0X02, 0X0300 );
-        LCD_WriteReg ( 0X03, 0X1038 ); //�ı䷽���
+        LCD_WriteReg ( 0X03, 0X1038 );
         LCD_WriteReg ( 0X08, 0X0202 );
         LCD_WriteReg ( 0X0A, 0X0008 );
         LCD_WriteReg ( 0X30, 0X0000 );
@@ -2345,10 +2342,10 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0X9A, 0X0010 );
         LCD_WriteReg ( 0X11, 0X0020 );
         LCD_WriteReg ( 0X10, 0X3428 );
-        LCD_WriteReg ( 0X12, 0X0002 ); //16
+        LCD_WriteReg ( 0X12, 0X0002 );
         LCD_WriteReg ( 0X13, 0X1038 );
         delay_ms ( 40 );
-        LCD_WriteReg ( 0X12, 0X0012 ); //16
+        LCD_WriteReg ( 0X12, 0X0012 );
         delay_ms ( 40 );
         LCD_WriteReg ( 0X10, 0X3420 );
         LCD_WriteReg ( 0X13, 0X3038 );
@@ -2366,7 +2363,7 @@ void LCD_Init ( void ) {
 
         LCD_WriteReg ( 0X01, 0X0100 );
         LCD_WriteReg ( 0X02, 0X0300 );
-        LCD_WriteReg ( 0X03, 0X1030 ); //�ı䷽���
+        LCD_WriteReg ( 0X03, 0X1030 );
         LCD_WriteReg ( 0X08, 0X0808 );
         LCD_WriteReg ( 0X0A, 0X0008 );
         LCD_WriteReg ( 0X60, 0X2700 );
@@ -2382,8 +2379,8 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0X07, 0X0033 );
         LCD_WriteReg ( 0X07, 0X0133 );
     }
-    LCD_Display_Dir ( 0 );      //Ĭ��Ϊ����
-    LCD_LED = 1;                //��������
+    LCD_Display_Dir ( 0 );
+    LCD_LED = 1;
     LCD_Clear ( WHITE );
 }
 
@@ -2436,12 +2433,12 @@ void LCD_Fill ( u16 sx, u16 sy, u16 ex, u16 ey, u16 color ) {
 void LCD_Color_Fill ( u16 sx, u16 sy, u16 ex, u16 ey, u16* color ) {
     u16 height, width;
     u16 i, j;
-    width = ex - sx + 1;    //�õ����Ŀ���
-    height = ey - sy + 1;   //�߶�
+    width = ex - sx + 1;
+    height = ey - sy + 1;
     for ( i = 0; i < height; i++ ) {
-        LCD_SetCursor ( sx, sy + i ); //���ù��λ��
-        LCD_WriteRAM_Prepare();     //��ʼд��GRAM
-        for ( j = 0; j < width; j++ ) LCD_WR_DATA ( color[i * height + j] ); //д������
+        LCD_SetCursor ( sx, sy + i );
+        LCD_WriteRAM_Prepare();
+        for ( j = 0; j < width; j++ ) LCD_WR_DATA ( color[i * height + j] );
     }
 }
 
@@ -2494,18 +2491,19 @@ void Draw_Circle ( u16 x0, u16 y0, u8 r ) {
     int di;
     a = 0;
     b = r;
-    di = 3 - ( r << 1 );     //�ж��¸���λ�õı�־
+    di = 3 - ( r << 1 );
+
     while ( a <= b ) {
-        LCD_DrawPoint ( x0 + a, y0 - b );     //5
-        LCD_DrawPoint ( x0 + b, y0 - a );     //0
-        LCD_DrawPoint ( x0 + b, y0 + a );     //4
-        LCD_DrawPoint ( x0 + a, y0 + b );     //6
-        LCD_DrawPoint ( x0 - a, y0 + b );     //1
+        LCD_DrawPoint ( x0 + a, y0 - b );
+        LCD_DrawPoint ( x0 + b, y0 - a );
+        LCD_DrawPoint ( x0 + b, y0 + a );
+        LCD_DrawPoint ( x0 + a, y0 + b );
+        LCD_DrawPoint ( x0 - a, y0 + b );
         LCD_DrawPoint ( x0 - b, y0 + a );
-        LCD_DrawPoint ( x0 - a, y0 - b );     //2
-        LCD_DrawPoint ( x0 - b, y0 - a );     //7
+        LCD_DrawPoint ( x0 - a, y0 - b );
+        LCD_DrawPoint ( x0 - b, y0 - a );
         a++;
-        //ʹ��Bresenham�㷨��Բ
+
         if ( di < 0 ) di += 4 * a + 6;
         else {
             di += 10 + 4 * ( a - b );
@@ -2518,12 +2516,12 @@ void LCD_ShowChar ( u16 x, u16 y, u8 num, u8 size, u8 mode ) {
     u8 temp, t1, t;
     u16 y0 = y;
     u16 colortemp = POINT_COLOR;
-    //���ô���
-    num = num - ' '; //�õ�ƫ�ƺ��ֵ
-    if ( !mode ) { //�ǵ��ӷ�ʽ
+
+    num = num - ' ';
+    if ( !mode ) {
         for ( t = 0; t < size; t++ ) {
-            if ( size == 12 ) temp = asc2_1206[num][t]; //����1206����
-            else temp = asc2_1608[num][t];       //����1608����
+            if ( size == 12 ) temp = asc2_1206[num][t];
+            else temp = asc2_1608[num][t];
             for ( t1 = 0; t1 < 8; t1++ ) {
                 if ( temp & 0x80 ) POINT_COLOR = colortemp;
                 else POINT_COLOR = BACK_COLOR;
@@ -2531,37 +2529,37 @@ void LCD_ShowChar ( u16 x, u16 y, u8 num, u8 size, u8 mode ) {
                 temp <<= 1;
                 y++;
                 if ( x >= lcddev.width ) {
-                    POINT_COLOR = colortemp;    //��������
+                    POINT_COLOR = colortemp;
                     return;
                 }
                 if ( ( y - y0 ) == size ) {
                     y = y0;
                     x++;
                     if ( x >= lcddev.width ) {
-                        POINT_COLOR = colortemp;    //��������
+                        POINT_COLOR = colortemp;
                         return;
                     }
                     break;
                 }
             }
         }
-    } else { //���ӷ�ʽ
+    } else {
         for ( t = 0; t < size; t++ ) {
-            if ( size == 12 ) temp = asc2_1206[num][t]; //����1206����
-            else temp = asc2_1608[num][t];       //����1608����
+            if ( size == 12 ) temp = asc2_1206[num][t];
+            else temp = asc2_1608[num][t];
             for ( t1 = 0; t1 < 8; t1++ ) {
                 if ( temp & 0x80 ) LCD_DrawPoint ( x, y );
                 temp <<= 1;
                 y++;
                 if ( x >= lcddev.height ) {
-                    POINT_COLOR = colortemp;    //��������
+                    POINT_COLOR = colortemp;
                     return;
                 }
                 if ( ( y - y0 ) == size ) {
                     y = y0;
                     x++;
                     if ( x >= lcddev.width ) {
-                        POINT_COLOR = colortemp;    //��������
+                        POINT_COLOR = colortemp;
                         return;
                     }
                     break;
