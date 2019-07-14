@@ -1347,7 +1347,7 @@ void LCD_Init ( void ) {
         LCD_WR_DATA ( 0x00 );
 
         LCD_WR_REG ( 0x3A );
-        LCD_WR_DATA ( 0x55 ); //66
+        LCD_WR_DATA ( 0x55 );
 
         LCD_WR_REG ( 0x11 );
         delay_ms ( 100 );
@@ -1815,7 +1815,7 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0039, 0x0007 );
         LCD_WriteReg ( 0x003C, 0x0602 ); // 0504
         LCD_WriteReg ( 0x003D, 0x0008 );
-        //ram
+
         LCD_WriteReg ( 0x0050, 0x0000 );
         LCD_WriteReg ( 0x0051, 0x00EF );
         LCD_WriteReg ( 0x0052, 0x0000 );
@@ -1823,14 +1823,14 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0060, 0xA700 );
         LCD_WriteReg ( 0x0061, 0x0001 );
         LCD_WriteReg ( 0x006A, 0x0000 );
-        //
+
         LCD_WriteReg ( 0x0080, 0x0000 );
         LCD_WriteReg ( 0x0081, 0x0000 );
         LCD_WriteReg ( 0x0082, 0x0000 );
         LCD_WriteReg ( 0x0083, 0x0000 );
         LCD_WriteReg ( 0x0084, 0x0000 );
         LCD_WriteReg ( 0x0085, 0x0000 );
-        //
+
         LCD_WriteReg ( 0x0090, 0x0010 );
         LCD_WriteReg ( 0x0092, 0x0600 );
 
@@ -1839,8 +1839,7 @@ void LCD_Init ( void ) {
     } else if ( lcddev.id == 0x9328 ) { //ILI9328   OK
         LCD_WriteReg ( 0x00EC, 0x108F ); // internal timeing
         LCD_WriteReg ( 0x00EF, 0x1234 ); // ADD
-        //LCD_WriteReg(0x00e7,0x0010);
-        //LCD_WriteReg(0x0000,0x0001);//�����ڲ�ʱ��
+
         LCD_WriteReg ( 0x0001, 0x0100 );
         LCD_WriteReg ( 0x0002, 0x0700 );
         LCD_WriteReg ( 0x0003, ( 1 << 12 ) | ( 3 << 4 ) | ( 0 << 3 ) ); //65K
@@ -1870,7 +1869,7 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0020, 0x0000 );
         LCD_WriteReg ( 0x0021, 0x0000 );
         delay_ms ( 50 );
-        //٤��У��
+
         LCD_WriteReg ( 0x0030, 0x0000 );
         LCD_WriteReg ( 0x0031, 0x0604 );
         LCD_WriteReg ( 0x0032, 0x0305 );
@@ -1899,14 +1898,13 @@ void LCD_Init ( void ) {
 
         LCD_WriteReg ( 0x0090, 0x0010 );
         LCD_WriteReg ( 0x0092, 0x0600 );
-        //������ʾ����
+
         LCD_WriteReg ( 0x0007, 0x0133 );
-    } else if ( lcddev.id == 0x9320 ) { //����OK.
+    } else if ( lcddev.id == 0x9320 ) {
         LCD_WriteReg ( 0x00, 0x0000 );
-        LCD_WriteReg ( 0x01, 0x0100 ); //Driver Output Contral.
-        LCD_WriteReg ( 0x02, 0x0700 ); //LCD Driver Waveform Contral.
-        LCD_WriteReg ( 0x03, 0x1030 ); //Entry Mode Set.
-        //LCD_WriteReg(0x03,0x1018);    //Entry Mode Set.
+        LCD_WriteReg ( 0x01, 0x0100 );
+        LCD_WriteReg ( 0x02, 0x0700 );
+        LCD_WriteReg ( 0x03, 0x1030 );
 
         LCD_WriteReg ( 0x04, 0x0000 ); //Scalling Contral.
         LCD_WriteReg ( 0x08, 0x0202 ); //Display Contral 2.(0x0207)
@@ -1926,7 +1924,7 @@ void LCD_Init ( void ) {
 
         LCD_WriteReg ( 0x2b, ( 1 << 14 ) | ( 1 << 4 ) );
         LCD_WriteReg ( 0x50, 0 ); //Set X Star
-        //ˮƽGRAM��ֹλ��Set X End.
+
         LCD_WriteReg ( 0x51, 239 ); //Set Y Star
         LCD_WriteReg ( 0x52, 0 ); //Set Y End.t.
         LCD_WriteReg ( 0x53, 319 ); //
@@ -2012,10 +2010,7 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x01, 0x0100 );
         LCD_WriteReg ( 0x02, 0x0700 ); //LCD Driving Waveform Contral
         LCD_WriteReg ( 0x03, 0x1030 ); //Entry Mode����
-        //ָ������������϶��µ��Զ���ģʽ
-        //Normal Mode(Window Mode disable)
-        //RGB��ʽ
-        //16λ����2�δ����8��������
+
         LCD_WriteReg ( 0x04, 0x0000 ); //Scalling Control register
         LCD_WriteReg ( 0x08, 0x0207 ); //Display Control 2
         LCD_WriteReg ( 0x09, 0x0000 ); //Display Control 3
@@ -2024,7 +2019,7 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0D, 0x0000 ); //Frame Maker Position
         LCD_WriteReg ( 0x0F, 0x0000 ); //External Display Interface Control 2
         delay_ms ( 20 );
-        //TFT Һ����ɫͼ����ʾ����14
+
         LCD_WriteReg ( 0x10, 0x16B0 ); //0x14B0 //Power Control 1
         LCD_WriteReg ( 0x11, 0x0001 ); //0x0007 //Power Control 2
         LCD_WriteReg ( 0x17, 0x0001 ); //0x0000 //Power Control 3
@@ -2387,17 +2382,17 @@ void LCD_Init ( void ) {
 void LCD_Clear ( u16 color ) {
     u32 index = 0;
     u32 totalpoint = lcddev.width;
-    totalpoint *= lcddev.height;        //�õ��ܵ���
-    if ( ( lcddev.id == 0X6804 ) && ( lcddev.dir == 1 ) ) { //6804������ʱ�����⴦��
+    totalpoint *= lcddev.height;
+    if ( ( lcddev.id == 0X6804 ) && ( lcddev.dir == 1 ) ) {
         lcddev.dir = 0;
         lcddev.setxcmd = 0X2A;
         lcddev.setycmd = 0X2B;
-        LCD_SetCursor ( 0x00, 0x0000 ); //���ù��λ��
+        LCD_SetCursor ( 0x00, 0x0000 );
         lcddev.dir = 1;
         lcddev.setxcmd = 0X2B;
         lcddev.setycmd = 0X2A;
-    } else LCD_SetCursor ( 0x00, 0x0000 ); //���ù��λ��
-    LCD_WriteRAM_Prepare();             //��ʼд��GRAM
+    } else LCD_SetCursor ( 0x00, 0x0000 );
+    LCD_WriteRAM_Prepare();
     for ( index = 0; index < totalpoint; index++ ) {
         LCD_WR_DATA ( color );
     }
@@ -2407,7 +2402,8 @@ void LCD_Fill ( u16 sx, u16 sy, u16 ex, u16 ey, u16 color ) {
     u16 i, j;
     u16 xlen = 0;
     u16 temp;
-    if ( ( lcddev.id == 0X6804 ) && ( lcddev.dir == 1 ) ) { //6804������ʱ�����⴦��
+
+    if ( ( lcddev.id == 0X6804 ) && ( lcddev.dir == 1 ) ) {
         temp = sx;
         sx = sy;
         sy = lcddev.width - ex - 1;
@@ -2423,9 +2419,9 @@ void LCD_Fill ( u16 sx, u16 sy, u16 ex, u16 ey, u16 color ) {
     } else {
         xlen = ex - sx + 1;
         for ( i = sy; i <= ey; i++ ) {
-            LCD_SetCursor ( sx, i );                //���ù��λ��
-            LCD_WriteRAM_Prepare();                 //��ʼд��GRAM
-            for ( j = 0; j < xlen; j++ ) LCD_WR_DATA ( color ); //���ù��λ��
+            LCD_SetCursor ( sx, i );
+            LCD_WriteRAM_Prepare();
+            for ( j = 0; j < xlen; j++ ) LCD_WR_DATA ( color );
         }
     }
 }
@@ -2446,26 +2442,26 @@ void LCD_DrawLine ( u16 x1, u16 y1, u16 x2, u16 y2 ) {
     u16 t;
     int xerr = 0, yerr = 0, delta_x, delta_y, distance;
     int incx, incy, uRow, uCol;
-    delta_x = x2 - x1; //������������
+    delta_x = x2 - x1;
     delta_y = y2 - y1;
     uRow = x1;
     uCol = y1;
-    if ( delta_x > 0 ) incx = 1; //���õ�������
-    else if ( delta_x == 0 ) incx = 0; //��ֱ��
+    if ( delta_x > 0 ) incx = 1;
+    else if ( delta_x == 0 ) incx = 0;
     else {
         incx = -1;
         delta_x = -delta_x;
     }
     if ( delta_y > 0 ) incy = 1;
-    else if ( delta_y == 0 ) incy = 0; //ˮƽ��
+    else if ( delta_y == 0 ) incy = 0;
     else {
         incy = -1;
         delta_y = -delta_y;
     }
-    if ( delta_x > delta_y ) distance = delta_x; //ѡȡ��������������
+    if ( delta_x > delta_y ) distance = delta_x;
     else distance = delta_y;
-    for ( t = 0; t <= distance + 1; t++ ) { //�������
-        LCD_DrawPoint ( uRow, uCol ); //����
+    for ( t = 0; t <= distance + 1; t++ ) {
+        LCD_DrawPoint ( uRow, uCol );
         xerr += delta_x ;
         yerr += delta_y ;
         if ( xerr > distance ) {
