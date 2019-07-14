@@ -259,45 +259,47 @@ void LCD_Scan_Dir ( u8 dir ) {
         }
     } else {
         switch ( dir ) {
-            case L2R_U2D://������,���ϵ���
+            case L2R_U2D:
                 regval |= ( 1 << 5 ) | ( 1 << 4 ) | ( 0 << 3 );
                 break;
-            case L2R_D2U://������,���µ���
+            case L2R_D2U:
                 regval |= ( 0 << 5 ) | ( 1 << 4 ) | ( 0 << 3 );
                 break;
-            case R2L_U2D://���ҵ���,���ϵ���
+            case R2L_U2D:
                 regval |= ( 1 << 5 ) | ( 0 << 4 ) | ( 0 << 3 );
                 break;
-            case R2L_D2U://���ҵ���,���µ���
+            case R2L_D2U:
                 regval |= ( 0 << 5 ) | ( 0 << 4 ) | ( 0 << 3 );
                 break;
-            case U2D_L2R://���ϵ���,������
+            case U2D_L2R:
                 regval |= ( 1 << 5 ) | ( 1 << 4 ) | ( 1 << 3 );
                 break;
-            case U2D_R2L://���ϵ���,���ҵ���
+            case U2D_R2L:
                 regval |= ( 1 << 5 ) | ( 0 << 4 ) | ( 1 << 3 );
                 break;
-            case D2U_L2R://���µ���,������
+            case D2U_L2R:
                 regval |= ( 0 << 5 ) | ( 1 << 4 ) | ( 1 << 3 );
                 break;
-            case D2U_R2L://���µ���,���ҵ���
+            case D2U_R2L:
                 regval |= ( 0 << 5 ) | ( 0 << 4 ) | ( 1 << 3 );
                 break;
         }
-        if ( lcddev.id == 0x8989 ) { //8989 IC
+
+        if ( lcddev.id == 0x8989 ) {
             dirreg = 0X11;
-            regval |= 0X6040; //65K
-        } else { //��������IC
+            regval |= 0X6040;
+        } else {
             dirreg = 0X03;
             regval |= 1 << 12;
         }
+
         LCD_WriteReg ( dirreg, regval );
     }
 }
 
 void LCD_DrawPoint ( u16 x, u16 y ) {
-    LCD_SetCursor ( x, y ); //���ù��λ��
-    LCD_WriteRAM_Prepare(); //��ʼд��GRAM
+    LCD_SetCursor ( x, y );
+    LCD_WriteRAM_Prepare();
     LCD_WR_DATA ( POINT_COLOR );
 }
 
@@ -469,35 +471,33 @@ void LCD_Set_Window ( u16 sx, u16 sy, u16 width, u16 height ) {
 }
 
 void LCD_Init ( void ) {
-    RCC->APB2ENR |= 1 << 3; //��ʹ������PORTBʱ��
-    RCC->APB2ENR |= 1 << 4; //��ʹ������PORTCʱ��
+    RCC->APB2ENR |= 1 << 3;
+    RCC->APB2ENR |= 1 << 4;
+    RCC->APB2ENR |= 1 << 0;
 
-    RCC->APB2ENR |= 1 << 0; //��������ʱ��
-//  JTAG_Set(SWD_ENABLE);  //����SWD
-
-    //PORTC6~10�����������
     GPIOC->CRH &= 0XFFFFF000;
     GPIOC->CRH |= 0X00000333;
     GPIOC->CRL &= 0X00FFFFFF;
     GPIOC->CRL |= 0X33000000;
     GPIOC->ODR |= 0X07C0;
-    //PORTB �������
+
     GPIOB->CRH = 0X33333333;
     GPIOB->CRL = 0X33333333;
     GPIOB->ODR = 0XFFFF;
-    delay_ms ( 50 ); // delay 50 ms
+    delay_ms ( 50 );
     LCD_WriteReg ( 0x0000, 0x0001 );
-    delay_ms ( 50 ); // delay 50 ms
+    delay_ms ( 50 );
     lcddev.id = LCD_ReadReg ( 0x0000 );
-    if ( lcddev.id < 0XFF || lcddev.id == 0XFFFF || lcddev.id == 0X9300 ) { //����ID����ȷ,����lcddev.id==0X9300�жϣ���Ϊ9341��δ����λ������»ᱻ����9300
-        //����9341 ID�Ķ�ȡ
+
+    if ( lcddev.id < 0XFF || lcddev.id == 0XFFFF || lcddev.id == 0X9300 ) {
         LCD_WR_REG ( 0XD3 );
         LCD_RD_DATA();              //dummy read
         LCD_RD_DATA();              //����0X00
         lcddev.id = LCD_RD_DATA();  //��ȡ93
         lcddev.id <<= 8;
         lcddev.id |= LCD_RD_DATA(); //��ȡ41
-        if ( lcddev.id != 0X9341 ) { //��9341,�����ǲ���6804
+
+        if ( lcddev.id != 0X9341 ) {
             LCD_WR_REG ( 0XBF );
             LCD_RD_DATA();          //dummy read
             LCD_RD_DATA();          //����0X01
@@ -525,7 +525,9 @@ void LCD_Init ( void ) {
             }
         }
     }
-    printf ( " LCD ID:%x\r\n", lcddev.id ); //��ӡLCD ID
+
+    printf ( " LCD ID:%x\r\n", lcddev.id );
+
     if ( lcddev.id == 0X9341 ) { //9341��ʼ��
         LCD_WR_REG ( 0xCF );
         LCD_WR_DATA ( 0x00 );
@@ -616,34 +618,34 @@ void LCD_Init ( void ) {
         LCD_WR_DATA ( 0x00 );
         LCD_WR_DATA ( 0x00 );
         LCD_WR_DATA ( 0xef );
-        LCD_WR_REG ( 0x11 ); //Exit Sleep
+        LCD_WR_REG ( 0x11 );
         delay_ms ( 120 );
-        LCD_WR_REG ( 0x29 ); //display on
-    } else if ( lcddev.id == 0x6804 ) { //6804��ʼ��
+        LCD_WR_REG ( 0x29 );
+    } else if ( lcddev.id == 0x6804 ) {
         LCD_WR_REG ( 0X11 );
         delay_ms ( 20 );
-        LCD_WR_REG ( 0XD0 ); //VCI1  VCL  VGH  VGL DDVDH VREG1OUT power amplitude setting
+        LCD_WR_REG ( 0XD0 );
         LCD_WR_DATA ( 0X07 );
         LCD_WR_DATA ( 0X42 );
         LCD_WR_DATA ( 0X1D );
-        LCD_WR_REG ( 0XD1 ); //VCOMH VCOM_AC amplitude setting
+        LCD_WR_REG ( 0XD1 );
         LCD_WR_DATA ( 0X00 );
         LCD_WR_DATA ( 0X1a );
         LCD_WR_DATA ( 0X09 );
-        LCD_WR_REG ( 0XD2 ); //Operational Amplifier Circuit Constant Current Adjust , charge pump frequency setting
+        LCD_WR_REG ( 0XD2 );
         LCD_WR_DATA ( 0X01 );
         LCD_WR_DATA ( 0X22 );
-        LCD_WR_REG ( 0XC0 ); //REV SM GS
+        LCD_WR_REG ( 0XC0 );
         LCD_WR_DATA ( 0X10 );
         LCD_WR_DATA ( 0X3B );
         LCD_WR_DATA ( 0X00 );
         LCD_WR_DATA ( 0X02 );
         LCD_WR_DATA ( 0X11 );
 
-        LCD_WR_REG ( 0XC5 ); // Frame rate setting = 72HZ  when setting 0x03
+        LCD_WR_REG ( 0XC5 );
         LCD_WR_DATA ( 0X03 );
 
-        LCD_WR_REG ( 0XC8 ); //Gamma setting
+        LCD_WR_REG ( 0XC8 );
         LCD_WR_DATA ( 0X00 );
         LCD_WR_DATA ( 0X25 );
         LCD_WR_DATA ( 0X21 );
@@ -664,13 +666,13 @@ void LCD_Init ( void ) {
         LCD_WR_DATA ( 0X00 );
         LCD_WR_DATA ( 0X02 );
 
-        LCD_WR_REG ( 0X20 ); //Exit invert mode
+        LCD_WR_REG ( 0X20 );
 
         LCD_WR_REG ( 0X36 );
-        LCD_WR_DATA ( 0X08 ); //ԭ����a
+        LCD_WR_DATA ( 0X08 );
 
         LCD_WR_REG ( 0X3A );
-        LCD_WR_DATA ( 0X55 ); //16λģʽ
+        LCD_WR_DATA ( 0X55 );
         LCD_WR_REG ( 0X2B );
         LCD_WR_DATA ( 0X00 );
         LCD_WR_DATA ( 0X00 );
@@ -698,9 +700,8 @@ void LCD_Init ( void ) {
         LCD_WR_REG ( 0xDF );
         LCD_WR_DATA ( 0x10 );
 
-        //VCOMvoltage//
         LCD_WR_REG ( 0xC4 );
-        LCD_WR_DATA ( 0x8F ); //5f
+        LCD_WR_DATA ( 0x8F );
 
         LCD_WR_REG ( 0xC6 );
         LCD_WR_DATA ( 0x00 );
