@@ -1985,13 +1985,13 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0039, 0x0707 );
         LCD_WriteReg ( 0x003C, 0x0402 );
         LCD_WriteReg ( 0x003D, 0x0C0F );
-        LCD_WriteReg ( 0x0050, 0x0000 ); // Horizontal GRAM Start Address
-        LCD_WriteReg ( 0x0051, 0x00EF ); // Horizontal GRAM End Address
-        LCD_WriteReg ( 0x0052, 0x0000 ); // Vertical GRAM Start Address
-        LCD_WriteReg ( 0x0053, 0x013F ); // Vertical GRAM Start Address
-        LCD_WriteReg ( 0x0060, 0x2700 ); // Gate Scan Line
-        LCD_WriteReg ( 0x0061, 0x0001 ); // NDL,VLE, REV
-        LCD_WriteReg ( 0x006A, 0x0000 ); // set scrolling line
+        LCD_WriteReg ( 0x0050, 0x0000 );
+        LCD_WriteReg ( 0x0051, 0x00EF );
+        LCD_WriteReg ( 0x0052, 0x0000 );
+        LCD_WriteReg ( 0x0053, 0x013F );
+        LCD_WriteReg ( 0x0060, 0x2700 );
+        LCD_WriteReg ( 0x0061, 0x0001 );
+        LCD_WriteReg ( 0x006A, 0x0000 );
         LCD_WriteReg ( 0x0080, 0x0000 );
         LCD_WriteReg ( 0x0081, 0x0000 );
         LCD_WriteReg ( 0x0082, 0x0000 );
@@ -2001,19 +2001,19 @@ void LCD_Init ( void ) {
 
         LCD_WriteReg ( 0x0090, 0x0010 );
         LCD_WriteReg ( 0x0092, 0x0600 );
-        LCD_WriteReg ( 0x0007, 0x0133 ); // 262K color and display ON
+        LCD_WriteReg ( 0x0007, 0x0133 );
     } else if ( lcddev.id == 0x5408 ) {
         LCD_WriteReg ( 0x01, 0x0100 );
-        LCD_WriteReg ( 0x02, 0x0700 ); //LCD Driving Waveform Contral
+        LCD_WriteReg ( 0x02, 0x0700 );
         LCD_WriteReg ( 0x03, 0x1030 );
 
-        LCD_WriteReg ( 0x04, 0x0000 ); //Scalling Control register
-        LCD_WriteReg ( 0x08, 0x0207 ); //Display Control 2
-        LCD_WriteReg ( 0x09, 0x0000 ); //Display Control 3
-        LCD_WriteReg ( 0x0A, 0x0000 ); //Frame Cycle Control
-        LCD_WriteReg ( 0x0C, 0x0000 ); //External Display Interface Control 1
-        LCD_WriteReg ( 0x0D, 0x0000 ); //Frame Maker Position
-        LCD_WriteReg ( 0x0F, 0x0000 ); //External Display Interface Control 2
+        LCD_WriteReg ( 0x04, 0x0000 );
+        LCD_WriteReg ( 0x08, 0x0207 );
+        LCD_WriteReg ( 0x09, 0x0000 );
+        LCD_WriteReg ( 0x0A, 0x0000 );
+        LCD_WriteReg ( 0x0C, 0x0000 );
+        LCD_WriteReg ( 0x0D, 0x0000 );
+        LCD_WriteReg ( 0x0F, 0x0000 );
         delay_ms ( 20 );
 
         LCD_WriteReg ( 0x10, 0x16B0 ); //0x14B0 //Power Control 1
