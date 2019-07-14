@@ -102,9 +102,14 @@ u16 LCD_ReadPoint ( u16 x, u16 y ) {
     GPIOB->CRL = 0X33333333;
     GPIOB->CRH = 0X33333333;
     GPIOB->ODR = 0XFFFF;
-    if ( lcddev.id == 0X9325 || lcddev.id == 0X4535 || lcddev.id == 0X4531 || lcddev.id == 0X8989 || lcddev.id == 0XB505 ) return r;
-    else if ( lcddev.id == 0X9341 || lcddev.id == 0X5310 || lcddev.id == 0X5510 ) return ( ( ( r >> 11 ) << 11 ) | ( ( g >> 10 ) << 5 ) | ( b >> 11 ) );
-    else return LCD_BGR2RGB ( r );
+
+    if ( lcddev.id == 0X9325 || lcddev.id == 0X4535 ||
+            lcddev.id == 0X4531 || lcddev.id == 0X8989 || lcddev.id == 0XB505 )
+        return r;
+    else if ( lcddev.id == 0X9341 || lcddev.id == 0X5310 || lcddev.id == 0X5510 )
+        return ( ( ( r >> 11 ) << 11 ) | ( ( g >> 10 ) << 5 ) | ( b >> 11 ) );
+    else
+        return LCD_BGR2RGB ( r );
 }
 
 void LCD_DisplayOn ( void ) {
@@ -210,11 +215,19 @@ void LCD_Scan_Dir ( u8 dir ) {
                 regval |= ( 1 << 7 ) | ( 1 << 6 ) | ( 1 << 5 );
                 break;
         }
-        if ( lcddev.id == 0X5510 ) dirreg = 0X3600;
-        else dirreg = 0X36;
-        if ( ( lcddev.id != 0X5310 ) && ( lcddev.id != 0X5510 ) ) regval |= 0X08;
-        if ( lcddev.id == 0X6804 ) regval |= 0x02;
+
+        if ( lcddev.id == 0X5510 )
+            dirreg = 0X3600;
+        else
+            dirreg = 0X36;
+        if ( ( lcddev.id != 0X5310 ) && ( lcddev.id != 0X5510 ) )
+            regval |= 0X08;
+
+        if ( lcddev.id == 0X6804 )
+            regval |= 0x02;
+
         LCD_WriteReg ( dirreg, regval );
+
         if ( ( regval & 0X20 ) || lcddev.dir == 1 ) {
             if ( lcddev.width < lcddev.height ) {
                 temp = lcddev.width;
@@ -228,6 +241,7 @@ void LCD_Scan_Dir ( u8 dir ) {
                 lcddev.height = temp;
             }
         }
+
         if ( lcddev.id == 0X5510 ) {
             LCD_WR_REG ( lcddev.setxcmd );
             LCD_WR_DATA ( 0 );
@@ -333,6 +347,7 @@ void LCD_Fast_DrawPoint ( u16 x, u16 y, u16 color ) {
         LCD_WriteReg ( lcddev.setxcmd, x );
         LCD_WriteReg ( lcddev.setycmd, y );
     }
+
     LCD_WR_REG ( lcddev.wramcmd );
     LCD_WR_DATA ( color );
 }
@@ -371,6 +386,7 @@ void LCD_Display_Dir ( u8 dir ) {
         lcddev.dir = 1;
         lcddev.width = 320;
         lcddev.height = 240;
+
         if ( lcddev.id == 0X9341 || lcddev.id == 0X5310 ) {
             lcddev.wramcmd = 0X2C;
             lcddev.setxcmd = 0X2A;
@@ -394,11 +410,13 @@ void LCD_Display_Dir ( u8 dir ) {
             lcddev.setxcmd = R33;
             lcddev.setycmd = R32;
         }
+
         if ( lcddev.id == 0X6804 || lcddev.id == 0X5310 ) {
             lcddev.width = 480;
             lcddev.height = 320;
         }
     }
+
     LCD_Scan_Dir ( DFT_SCAN_DIR );
 }
 
@@ -557,28 +575,28 @@ void LCD_Init ( void ) {
         LCD_WR_DATA ( 0x00 );
         LCD_WR_REG ( 0xC0 );
         LCD_WR_DATA ( 0x1B );
-        LCD_WR_REG ( 0xC1 ); //Power control
-        LCD_WR_DATA ( 0x01 ); //SAP[2:0];BT[3:0]
-        LCD_WR_REG ( 0xC5 ); //VCM control
-        LCD_WR_DATA ( 0x30 ); //3F
-        LCD_WR_DATA ( 0x30 ); //3C
-        LCD_WR_REG ( 0xC7 ); //VCM control2
+        LCD_WR_REG ( 0xC1 );
+        LCD_WR_DATA ( 0x01 );
+        LCD_WR_REG ( 0xC5 );
+        LCD_WR_DATA ( 0x30 );
+        LCD_WR_DATA ( 0x30 );
+        LCD_WR_REG ( 0xC7 );
         LCD_WR_DATA ( 0XB7 );
-        LCD_WR_REG ( 0x36 ); // Memory Access Control
+        LCD_WR_REG ( 0x36 );
         LCD_WR_DATA ( 0x48 );
         LCD_WR_REG ( 0x3A );
         LCD_WR_DATA ( 0x55 );
         LCD_WR_REG ( 0xB1 );
         LCD_WR_DATA ( 0x00 );
         LCD_WR_DATA ( 0x1A );
-        LCD_WR_REG ( 0xB6 ); // Display Function Control
+        LCD_WR_REG ( 0xB6 );
         LCD_WR_DATA ( 0x0A );
         LCD_WR_DATA ( 0xA2 );
-        LCD_WR_REG ( 0xF2 ); // 3Gamma Function Disable
+        LCD_WR_REG ( 0xF2 );
         LCD_WR_DATA ( 0x00 );
-        LCD_WR_REG ( 0x26 ); //Gamma curve selected
+        LCD_WR_REG ( 0x26 );
         LCD_WR_DATA ( 0x01 );
-        LCD_WR_REG ( 0xE0 ); //Set Gamma
+        LCD_WR_REG ( 0xE0 );
         LCD_WR_DATA ( 0x0F );
         LCD_WR_DATA ( 0x2A );
         LCD_WR_DATA ( 0x28 );
@@ -2431,7 +2449,9 @@ void LCD_Color_Fill ( u16 sx, u16 sy, u16 ex, u16 ey, u16* color ) {
     for ( i = 0; i < height; i++ ) {
         LCD_SetCursor ( sx, sy + i );
         LCD_WriteRAM_Prepare();
-        for ( j = 0; j < width; j++ ) LCD_WR_DATA ( color[i * height + j] );
+
+        for ( j = 0; j < width; j++ )
+            LCD_WR_DATA ( color[i * height + j] );
     }
 }
 
@@ -2443,28 +2463,40 @@ void LCD_DrawLine ( u16 x1, u16 y1, u16 x2, u16 y2 ) {
     delta_y = y2 - y1;
     uRow = x1;
     uCol = y1;
-    if ( delta_x > 0 ) incx = 1;
-    else if ( delta_x == 0 ) incx = 0;
+
+    if ( delta_x > 0 )
+        incx = 1;
+    else if ( delta_x == 0 )
+        incx = 0;
     else {
         incx = -1;
         delta_x = -delta_x;
     }
-    if ( delta_y > 0 ) incy = 1;
-    else if ( delta_y == 0 ) incy = 0;
+
+    if ( delta_y > 0 )
+        incy = 1;
+    else if ( delta_y == 0 )
+        incy = 0;
     else {
         incy = -1;
         delta_y = -delta_y;
     }
-    if ( delta_x > delta_y ) distance = delta_x;
-    else distance = delta_y;
+
+    if ( delta_x > delta_y )
+        distance = delta_x;
+    else
+        distance = delta_y;
+
     for ( t = 0; t <= distance + 1; t++ ) {
         LCD_DrawPoint ( uRow, uCol );
         xerr += delta_x ;
         yerr += delta_y ;
+
         if ( xerr > distance ) {
             xerr -= distance;
             uRow += incx;
         }
+
         if ( yerr > distance ) {
             yerr -= distance;
             uCol += incy;
@@ -2513,14 +2545,21 @@ void LCD_ShowChar ( u16 x, u16 y, u8 num, u8 size, u8 mode ) {
     num = num - ' ';
     if ( !mode ) {
         for ( t = 0; t < size; t++ ) {
-            if ( size == 12 ) temp = asc2_1206[num][t];
-            else temp = asc2_1608[num][t];
+            if ( size == 12 )
+                temp = asc2_1206[num][t];
+            else
+                temp = asc2_1608[num][t];
+
             for ( t1 = 0; t1 < 8; t1++ ) {
-                if ( temp & 0x80 ) POINT_COLOR = colortemp;
-                else POINT_COLOR = BACK_COLOR;
+                if ( temp & 0x80 )
+                    POINT_COLOR = colortemp;
+                else
+                    POINT_COLOR = BACK_COLOR;
+
                 LCD_DrawPoint ( x, y );
                 temp <<= 1;
                 y++;
+
                 if ( x >= lcddev.width ) {
                     POINT_COLOR = colortemp;
                     return;
@@ -2528,38 +2567,49 @@ void LCD_ShowChar ( u16 x, u16 y, u8 num, u8 size, u8 mode ) {
                 if ( ( y - y0 ) == size ) {
                     y = y0;
                     x++;
+
                     if ( x >= lcddev.width ) {
                         POINT_COLOR = colortemp;
                         return;
                     }
+
                     break;
                 }
             }
         }
     } else {
         for ( t = 0; t < size; t++ ) {
-            if ( size == 12 ) temp = asc2_1206[num][t];
-            else temp = asc2_1608[num][t];
+            if ( size == 12 )
+                temp = asc2_1206[num][t];
+            else
+                temp = asc2_1608[num][t];
+
             for ( t1 = 0; t1 < 8; t1++ ) {
-                if ( temp & 0x80 ) LCD_DrawPoint ( x, y );
+                if ( temp & 0x80 )
+                    LCD_DrawPoint ( x, y );
                 temp <<= 1;
                 y++;
+
                 if ( x >= lcddev.height ) {
                     POINT_COLOR = colortemp;
                     return;
                 }
+
                 if ( ( y - y0 ) == size ) {
                     y = y0;
                     x++;
+
                     if ( x >= lcddev.width ) {
                         POINT_COLOR = colortemp;
                         return;
                     }
+
                     break;
                 }
             }
         }
     }
+
     POINT_COLOR = colortemp;
 }
 
@@ -2581,6 +2631,7 @@ void LCD_ShowNum ( u16 x, u16 y, u32 num, u8 len, u8 size ) {
             } else enshow = 1;
 
         }
+
         LCD_ShowChar ( x + ( size / 2 ) *t, y, temp + '0', size, 0 );
     }
 }
@@ -2592,12 +2643,17 @@ void LCD_ShowxNum ( u16 x, u16 y, u32 num, u8 len, u8 size, u8 mode ) {
         temp = ( num / LCD_Pow ( 10, len - t - 1 ) ) % 10;
         if ( enshow == 0 && t < ( len - 1 ) ) {
             if ( temp == 0 ) {
-                if ( mode & 0X80 ) LCD_ShowChar ( x + ( size / 2 ) *t, y, '0', size, mode & 0X01 );
-                else LCD_ShowChar ( x + ( size / 2 ) *t, y, ' ', size, mode & 0X01 );
+                if ( mode & 0X80 )
+                    LCD_ShowChar ( x + ( size / 2 ) *t, y, '0', size, mode & 0X01 );
+                else
+                    LCD_ShowChar ( x + ( size / 2 ) *t, y, ' ', size, mode & 0X01 );
+
                 continue;
-            } else enshow = 1;
+            } else
+                enshow = 1;
 
         }
+
         LCD_ShowChar ( x + ( size / 2 ) *t, y, temp + '0', size, mode & 0X01 );
     }
 }
@@ -2606,12 +2662,16 @@ void LCD_ShowString ( u16 x, u16 y, u16 width, u16 height, u8 size, u8* p ) {
     u8 x0 = x;
     width += x;
     height += y;
+
     while ( ( *p <= '~' ) && ( *p >= ' ' ) ) {
         if ( x >= width ) {
             x = x0;
             y += size;
         }
-        if ( y >= height ) break;
+
+        if ( y >= height )
+            break;
+
         LCD_ShowChar ( x, y, *p, size, 0 );
         x += size / 2;
         p++;
