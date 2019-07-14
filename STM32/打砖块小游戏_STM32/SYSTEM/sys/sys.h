@@ -1,10 +1,10 @@
 #ifndef __SYS_H
-#define __SYS_H	
+#define __SYS_H
 #include "stm32f10x.h"
-//////////////////////////////////////////////////////////////////////////////////	 
+//////////////////////////////////////////////////////////////////////////////////
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
 //ALIENTEK Mini STM32开发板
-//系统时钟初始化		   
+//系统时钟初始化
 //正点原子@ALIENTEK
 //技术论坛:www.openedv.com
 //修改日期:2010/5/27
@@ -12,10 +12,10 @@
 //版权所有，盗版必究。
 //Copyright(C) 正点原子 2009-2019
 //All rights reserved
-//******************************************************************************** 
-#define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2)) 
-#define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
-#define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum)) 
+//********************************************************************************
+#define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2))
+#define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr))
+#define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum))
 //IO口地址映射
 #define GPIOA_ODR_Addr    (GPIOA_BASE+12) //0x4001080C 
 #define GPIOB_ODR_Addr    (GPIOB_BASE+12) //0x40010C0C 
@@ -32,7 +32,7 @@
 #define GPIOE_IDR_Addr    (GPIOE_BASE+8) //0x40011808 
 #define GPIOF_IDR_Addr    (GPIOF_BASE+8) //0x40011A08 
 #define GPIOG_IDR_Addr    (GPIOG_BASE+8) //0x40011E08 
- 
+
 //IO口操作,只对单一的IO口!
 //确保n的值小于16!
 #define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //输出 
@@ -58,7 +58,7 @@
 
 
 
-void NVIC_Configuration(void);
+void NVIC_Configuration ( void );
 
 
 

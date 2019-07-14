@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    GPIO/IOToggle/stm32f10x_it.h 
+  * @file    GPIO/IOToggle/stm32f10x_it.h
   * @author  MCD Application Team
   * @version V3.5.0
   * @date    08-April-2011
@@ -31,15 +31,15 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void SVC_Handler(void);
-void DebugMon_Handler(void);
-void PendSV_Handler(void);
-void SysTick_Handler(void);
+void NMI_Handler ( void );
+void HardFault_Handler ( void );
+void MemManage_Handler ( void );
+void BusFault_Handler ( void );
+void UsageFault_Handler ( void );
+void SVC_Handler ( void );
+void DebugMon_Handler ( void );
+void PendSV_Handler ( void );
+void SysTick_Handler ( void );
 
 #endif /* __STM32F10x_IT_H */
 
