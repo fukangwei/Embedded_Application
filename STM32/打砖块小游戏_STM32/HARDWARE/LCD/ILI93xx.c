@@ -491,36 +491,38 @@ void LCD_Init ( void ) {
 
     if ( lcddev.id < 0XFF || lcddev.id == 0XFFFF || lcddev.id == 0X9300 ) {
         LCD_WR_REG ( 0XD3 );
-        LCD_RD_DATA();              //dummy read
-        LCD_RD_DATA();              //����0X00
-        lcddev.id = LCD_RD_DATA();  //��ȡ93
+        LCD_RD_DATA();
+        LCD_RD_DATA();
+        lcddev.id = LCD_RD_DATA();
         lcddev.id <<= 8;
-        lcddev.id |= LCD_RD_DATA(); //��ȡ41
+        lcddev.id |= LCD_RD_DATA();
 
         if ( lcddev.id != 0X9341 ) {
             LCD_WR_REG ( 0XBF );
-            LCD_RD_DATA();          //dummy read
-            LCD_RD_DATA();          //����0X01
-            LCD_RD_DATA();          //����0XD0
-            lcddev.id = LCD_RD_DATA(); //�������0X68
+            LCD_RD_DATA();
+            LCD_RD_DATA();
+            LCD_RD_DATA();
+            lcddev.id = LCD_RD_DATA();
             lcddev.id <<= 8;
-            lcddev.id |= LCD_RD_DATA(); //�������0X04
-            if ( lcddev.id != 0X6804 ) { //Ҳ����6804,���Կ����ǲ���NT35310
+            lcddev.id |= LCD_RD_DATA();
+
+            if ( lcddev.id != 0X6804 ) {
                 LCD_WR_REG ( 0XD4 );
-                LCD_RD_DATA();              //dummy read
-                LCD_RD_DATA();              //����0X01
-                lcddev.id = LCD_RD_DATA();  //����0X53
+                LCD_RD_DATA();
+                LCD_RD_DATA();
+                lcddev.id = LCD_RD_DATA();
                 lcddev.id <<= 8;
-                lcddev.id |= LCD_RD_DATA(); //�������0X10
-                if ( lcddev.id != 0X5310 ) { //Ҳ����NT35310,���Կ����ǲ���NT35510
+                lcddev.id |= LCD_RD_DATA();
+
+                if ( lcddev.id != 0X5310 ) {
                     LCD_WR_REG ( 0XDA00 );
-                    LCD_RD_DATA();          //����0X00
+                    LCD_RD_DATA();
                     LCD_WR_REG ( 0XDB00 );
-                    lcddev.id = LCD_RD_DATA(); //����0X80
+                    lcddev.id = LCD_RD_DATA();
                     lcddev.id <<= 8;
                     LCD_WR_REG ( 0XDC00 );
-                    lcddev.id |= LCD_RD_DATA(); //����0X00
-                    if ( lcddev.id == 0x8000 ) lcddev.id = 0x5510; //NT35510���ص�ID��8000H,Ϊ��������,����ǿ������Ϊ5510
+                    lcddev.id |= LCD_RD_DATA();
+                    if ( lcddev.id == 0x8000 ) lcddev.id = 0x5510;
                 }
             }
         }
@@ -528,7 +530,7 @@ void LCD_Init ( void ) {
 
     printf ( " LCD ID:%x\r\n", lcddev.id );
 
-    if ( lcddev.id == 0X9341 ) { //9341��ʼ��
+    if ( lcddev.id == 0X9341 ) {
         LCD_WR_REG ( 0xCF );
         LCD_WR_DATA ( 0x00 );
         LCD_WR_DATA ( 0xC1 );
@@ -553,8 +555,8 @@ void LCD_Init ( void ) {
         LCD_WR_REG ( 0xEA );
         LCD_WR_DATA ( 0x00 );
         LCD_WR_DATA ( 0x00 );
-        LCD_WR_REG ( 0xC0 ); //Power control
-        LCD_WR_DATA ( 0x1B ); //VRH[5:0]
+        LCD_WR_REG ( 0xC0 );
+        LCD_WR_DATA ( 0x1B );
         LCD_WR_REG ( 0xC1 ); //Power control
         LCD_WR_DATA ( 0x01 ); //SAP[2:0];BT[3:0]
         LCD_WR_REG ( 0xC5 ); //VCM control
@@ -592,7 +594,7 @@ void LCD_Init ( void ) {
         LCD_WR_DATA ( 0x00 );
         LCD_WR_DATA ( 0x00 );
         LCD_WR_DATA ( 0x00 );
-        LCD_WR_REG ( 0XE1 ); //Set Gamma
+        LCD_WR_REG ( 0XE1 );
         LCD_WR_DATA ( 0x00 );
         LCD_WR_DATA ( 0x15 );
         LCD_WR_DATA ( 0x17 );
@@ -2016,13 +2018,13 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0F, 0x0000 );
         delay_ms ( 20 );
 
-        LCD_WriteReg ( 0x10, 0x16B0 ); //0x14B0 //Power Control 1
-        LCD_WriteReg ( 0x11, 0x0001 ); //0x0007 //Power Control 2
-        LCD_WriteReg ( 0x17, 0x0001 ); //0x0000 //Power Control 3
-        LCD_WriteReg ( 0x12, 0x0138 ); //0x013B //Power Control 4
-        LCD_WriteReg ( 0x13, 0x0800 ); //0x0800 //Power Control 5
-        LCD_WriteReg ( 0x29, 0x0009 ); //NVM read data 2
-        LCD_WriteReg ( 0x2a, 0x0009 ); //NVM read data 3
+        LCD_WriteReg ( 0x10, 0x16B0 );
+        LCD_WriteReg ( 0x11, 0x0001 );
+        LCD_WriteReg ( 0x17, 0x0001 );
+        LCD_WriteReg ( 0x12, 0x0138 );
+        LCD_WriteReg ( 0x13, 0x0800 );
+        LCD_WriteReg ( 0x29, 0x0009 );
+        LCD_WriteReg ( 0x2a, 0x0009 );
         LCD_WriteReg ( 0xa4, 0x0000 );
         LCD_WriteReg ( 0x50, 0x0000 );
         LCD_WriteReg ( 0x51, 0x00EF );
@@ -2030,18 +2032,18 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x53, 0x013F );
         LCD_WriteReg ( 0x60, 0x2700 );
 
-        LCD_WriteReg ( 0x61, 0x0001 ); //Driver Output Control
-        LCD_WriteReg ( 0x6A, 0x0000 ); //Vertical Scroll Control
-        LCD_WriteReg ( 0x80, 0x0000 ); //Display Position �C Partial Display 1
-        LCD_WriteReg ( 0x81, 0x0000 ); //RAM Address Start �C Partial Display 1
-        LCD_WriteReg ( 0x82, 0x0000 ); //RAM address End - Partial Display 1
-        LCD_WriteReg ( 0x83, 0x0000 ); //Display Position �C Partial Display 2
-        LCD_WriteReg ( 0x84, 0x0000 ); //RAM Address Start �C Partial Display 2
-        LCD_WriteReg ( 0x85, 0x0000 ); //RAM address End �C Partail Display2
-        LCD_WriteReg ( 0x90, 0x0013 ); //Frame Cycle Control
-        LCD_WriteReg ( 0x92, 0x0000 ); //Panel Interface Control 2
-        LCD_WriteReg ( 0x93, 0x0003 ); //Panel Interface control 3
-        LCD_WriteReg ( 0x95, 0x0110 ); //Frame Cycle Control
+        LCD_WriteReg ( 0x61, 0x0001 );
+        LCD_WriteReg ( 0x6A, 0x0000 );
+        LCD_WriteReg ( 0x80, 0x0000 );
+        LCD_WriteReg ( 0x81, 0x0000 );
+        LCD_WriteReg ( 0x82, 0x0000 );
+        LCD_WriteReg ( 0x83, 0x0000 );
+        LCD_WriteReg ( 0x84, 0x0000 );
+        LCD_WriteReg ( 0x85, 0x0000 );
+        LCD_WriteReg ( 0x90, 0x0013 );
+        LCD_WriteReg ( 0x92, 0x0000 );
+        LCD_WriteReg ( 0x93, 0x0003 );
+        LCD_WriteReg ( 0x95, 0x0110 );
         LCD_WriteReg ( 0x07, 0x0173 );
         delay_ms ( 50 );
     } else if ( lcddev.id == 0x1505 ) {
