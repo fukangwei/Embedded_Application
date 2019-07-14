@@ -1931,18 +1931,18 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x61, 0x0001 );
         LCD_WriteReg ( 0x6a, 0x0000 );
 
-        LCD_WriteReg ( 0x80, 0x0000 ); //Display Position? Partial Display 1.
-        LCD_WriteReg ( 0x81, 0x0000 ); //RAM Address Start? Partial Display 1.
-        LCD_WriteReg ( 0x82, 0x0000 ); //RAM Address End-Partial Display 1.
-        LCD_WriteReg ( 0x83, 0x0000 ); //Displsy Position? Partial Display 2.
-        LCD_WriteReg ( 0x84, 0x0000 ); //RAM Address Start? Partial Display 2.
-        LCD_WriteReg ( 0x85, 0x0000 ); //RAM Address End? Partial Display 2.
+        LCD_WriteReg ( 0x80, 0x0000 );
+        LCD_WriteReg ( 0x81, 0x0000 );
+        LCD_WriteReg ( 0x82, 0x0000 );
+        LCD_WriteReg ( 0x83, 0x0000 );
+        LCD_WriteReg ( 0x84, 0x0000 );
+        LCD_WriteReg ( 0x85, 0x0000 );
 
-        LCD_WriteReg ( 0x90, ( 0 << 7 ) | ( 16 << 0 ) ); //Frame Cycle Contral.(0x0013)
-        LCD_WriteReg ( 0x92, 0x0000 ); //Panel Interface Contral 2.(0x0000)
-        LCD_WriteReg ( 0x93, 0x0001 ); //Panel Interface Contral 3.
-        LCD_WriteReg ( 0x95, 0x0110 ); //Frame Cycle Contral.(0x0110)
-        LCD_WriteReg ( 0x97, ( 0 << 8 ) ); //
+        LCD_WriteReg ( 0x90, ( 0 << 7 ) | ( 16 << 0 ) );
+        LCD_WriteReg ( 0x92, 0x0000 );
+        LCD_WriteReg ( 0x93, 0x0001 );
+        LCD_WriteReg ( 0x95, 0x0110 );
+        LCD_WriteReg ( 0x97, ( 0 << 8 ) );
         LCD_WriteReg ( 0x98, 0x0000 );
         LCD_WriteReg ( 0x07, 0x0173 );
     } else if ( lcddev.id == 0X9331 ) {
@@ -1951,30 +1951,30 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0002, 0x0200 );
         LCD_WriteReg ( 0x0003, ( 1 << 12 ) | ( 3 << 4 ) | ( 1 << 3 ) );
 
-        LCD_WriteReg ( 0x0008, 0x0202 ); // set the back porch and front porch
-        LCD_WriteReg ( 0x0009, 0x0000 ); // set non-display area refresh cycle ISC[3:0]
-        LCD_WriteReg ( 0x000A, 0x0000 ); // FMARK function
-        LCD_WriteReg ( 0x000C, 0x0000 ); // RGB interface setting
-        LCD_WriteReg ( 0x000D, 0x0000 ); // Frame marker Position
-        LCD_WriteReg ( 0x000F, 0x0000 ); // RGB interface polarity
-        //*************Power On sequence ****************//
-        LCD_WriteReg ( 0x0010, 0x0000 ); // SAP, BT[3:0], AP, DSTB, SLP, STB
-        LCD_WriteReg ( 0x0011, 0x0007 ); // DC1[2:0], DC0[2:0], VC[2:0]
-        LCD_WriteReg ( 0x0012, 0x0000 ); // VREG1OUT voltage
-        LCD_WriteReg ( 0x0013, 0x0000 ); // VDV[4:0] for VCOM amplitude
-        delay_ms ( 200 ); // Dis-charge capacitor power voltage
-        LCD_WriteReg ( 0x0010, 0x1690 ); // SAP, BT[3:0], AP, DSTB, SLP, STB
-        LCD_WriteReg ( 0x0011, 0x0227 ); // DC1[2:0], DC0[2:0], VC[2:0]
-        delay_ms ( 50 ); // Delay 50ms
-        LCD_WriteReg ( 0x0012, 0x000C ); // Internal reference voltage= Vci;
-        delay_ms ( 50 ); // Delay 50ms
-        LCD_WriteReg ( 0x0013, 0x0800 ); // Set VDV[4:0] for VCOM amplitude
-        LCD_WriteReg ( 0x0029, 0x0011 ); // Set VCM[5:0] for VCOMH
-        LCD_WriteReg ( 0x002B, 0x000B ); // Set Frame Rate
-        delay_ms ( 50 ); // Delay 50ms
-        LCD_WriteReg ( 0x0020, 0x0000 ); // GRAM horizontal Address
-        LCD_WriteReg ( 0x0021, 0x013f ); // GRAM Vertical Address
-        // ----------- Adjust the Gamma Curve ----------//
+        LCD_WriteReg ( 0x0008, 0x0202 );
+        LCD_WriteReg ( 0x0009, 0x0000 );
+        LCD_WriteReg ( 0x000A, 0x0000 );
+        LCD_WriteReg ( 0x000C, 0x0000 );
+        LCD_WriteReg ( 0x000D, 0x0000 );
+        LCD_WriteReg ( 0x000F, 0x0000 );
+
+        LCD_WriteReg ( 0x0010, 0x0000 );
+        LCD_WriteReg ( 0x0011, 0x0007 );
+        LCD_WriteReg ( 0x0012, 0x0000 );
+        LCD_WriteReg ( 0x0013, 0x0000 );
+        delay_ms ( 200 );
+        LCD_WriteReg ( 0x0010, 0x1690 );
+        LCD_WriteReg ( 0x0011, 0x0227 );
+        delay_ms ( 50 );
+        LCD_WriteReg ( 0x0012, 0x000C );
+        delay_ms ( 50 );
+        LCD_WriteReg ( 0x0013, 0x0800 );
+        LCD_WriteReg ( 0x0029, 0x0011 );
+        LCD_WriteReg ( 0x002B, 0x000B );
+        delay_ms ( 50 );
+        LCD_WriteReg ( 0x0020, 0x0000 );
+        LCD_WriteReg ( 0x0021, 0x013f );
+
         LCD_WriteReg ( 0x0030, 0x0000 );
         LCD_WriteReg ( 0x0031, 0x0106 );
         LCD_WriteReg ( 0x0032, 0x0000 );
@@ -1985,7 +1985,6 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0039, 0x0707 );
         LCD_WriteReg ( 0x003C, 0x0402 );
         LCD_WriteReg ( 0x003D, 0x0C0F );
-        //------------------ Set GRAM area ---------------//
         LCD_WriteReg ( 0x0050, 0x0000 ); // Horizontal GRAM Start Address
         LCD_WriteReg ( 0x0051, 0x00EF ); // Horizontal GRAM End Address
         LCD_WriteReg ( 0x0052, 0x0000 ); // Vertical GRAM Start Address
@@ -1993,21 +1992,20 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x0060, 0x2700 ); // Gate Scan Line
         LCD_WriteReg ( 0x0061, 0x0001 ); // NDL,VLE, REV
         LCD_WriteReg ( 0x006A, 0x0000 ); // set scrolling line
-        //-------------- Partial Display Control ---------//
         LCD_WriteReg ( 0x0080, 0x0000 );
         LCD_WriteReg ( 0x0081, 0x0000 );
         LCD_WriteReg ( 0x0082, 0x0000 );
         LCD_WriteReg ( 0x0083, 0x0000 );
         LCD_WriteReg ( 0x0084, 0x0000 );
         LCD_WriteReg ( 0x0085, 0x0000 );
-        //-------------- Panel Control -------------------//
+
         LCD_WriteReg ( 0x0090, 0x0010 );
         LCD_WriteReg ( 0x0092, 0x0600 );
         LCD_WriteReg ( 0x0007, 0x0133 ); // 262K color and display ON
     } else if ( lcddev.id == 0x5408 ) {
         LCD_WriteReg ( 0x01, 0x0100 );
         LCD_WriteReg ( 0x02, 0x0700 ); //LCD Driving Waveform Contral
-        LCD_WriteReg ( 0x03, 0x1030 ); //Entry Mode����
+        LCD_WriteReg ( 0x03, 0x1030 );
 
         LCD_WriteReg ( 0x04, 0x0000 ); //Scalling Control register
         LCD_WriteReg ( 0x08, 0x0207 ); //Display Control 2
@@ -2046,42 +2044,41 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x95, 0x0110 ); //Frame Cycle Control
         LCD_WriteReg ( 0x07, 0x0173 );
         delay_ms ( 50 );
-    } else if ( lcddev.id == 0x1505 ) { //OK
-        // second release on 3/5  ,luminance is acceptable,water wave appear during camera preview
+    } else if ( lcddev.id == 0x1505 ) {
         LCD_WriteReg ( 0x0007, 0x0000 );
         delay_ms ( 50 );
-        LCD_WriteReg ( 0x0012, 0x011C ); //0x011A   why need to set several times?
-        LCD_WriteReg ( 0x00A4, 0x0001 ); //NVM
+        LCD_WriteReg ( 0x0012, 0x011C );
+        LCD_WriteReg ( 0x00A4, 0x0001 );
         LCD_WriteReg ( 0x0008, 0x000F );
         LCD_WriteReg ( 0x000A, 0x0008 );
         LCD_WriteReg ( 0x000D, 0x0008 );
-        //٤��У��
+
         LCD_WriteReg ( 0x0030, 0x0707 );
-        LCD_WriteReg ( 0x0031, 0x0007 ); //0x0707
+        LCD_WriteReg ( 0x0031, 0x0007 );
         LCD_WriteReg ( 0x0032, 0x0603 );
         LCD_WriteReg ( 0x0033, 0x0700 );
         LCD_WriteReg ( 0x0034, 0x0202 );
-        LCD_WriteReg ( 0x0035, 0x0002 ); //?0x0606
+        LCD_WriteReg ( 0x0035, 0x0002 );
         LCD_WriteReg ( 0x0036, 0x1F0F );
-        LCD_WriteReg ( 0x0037, 0x0707 ); //0x0f0f  0x0105
+        LCD_WriteReg ( 0x0037, 0x0707 );
         LCD_WriteReg ( 0x0038, 0x0000 );
         LCD_WriteReg ( 0x0039, 0x0000 );
         LCD_WriteReg ( 0x003A, 0x0707 );
-        LCD_WriteReg ( 0x003B, 0x0000 ); //0x0303
-        LCD_WriteReg ( 0x003C, 0x0007 ); //?0x0707
-        LCD_WriteReg ( 0x003D, 0x0000 ); //0x1313//0x1f08
+        LCD_WriteReg ( 0x003B, 0x0000 );
+        LCD_WriteReg ( 0x003C, 0x0007 );
+        LCD_WriteReg ( 0x003D, 0x0000 );
         delay_ms ( 50 );
         LCD_WriteReg ( 0x0007, 0x0001 );
         LCD_WriteReg ( 0x0017, 0x0001 );
         delay_ms ( 50 );
 
         LCD_WriteReg ( 0x0010, 0x17A0 );
-        LCD_WriteReg ( 0x0011, 0x0217 ); //reference voltage VC[2:0]   Vciout = 1.00*Vcivl
-        LCD_WriteReg ( 0x0012, 0x011E ); //0x011c  //Vreg1out = Vcilvl*1.80   is it the same as Vgama1out ?
-        LCD_WriteReg ( 0x0013, 0x0F00 ); //VDV[4:0]-->VCOM Amplitude VcomL = VcomH - Vcom Ampl
+        LCD_WriteReg ( 0x0011, 0x0217 );
+        LCD_WriteReg ( 0x0012, 0x011E );
+        LCD_WriteReg ( 0x0013, 0x0F00 );
         LCD_WriteReg ( 0x002A, 0x0000 );
-        LCD_WriteReg ( 0x0029, 0x000A ); //0x0001F  Vcomh = VCM1[4:0]*Vreg1out    gate source voltage??
-        LCD_WriteReg ( 0x0012, 0x013E ); // 0x013C  power supply on
+        LCD_WriteReg ( 0x0029, 0x000A );
+        LCD_WriteReg ( 0x0012, 0x013E );
 
         LCD_WriteReg ( 0x0050, 0x0000 );
         LCD_WriteReg ( 0x0051, 0x00EF );
@@ -2252,17 +2249,17 @@ void LCD_Init ( void ) {
         LCD_WriteReg ( 0x000D, 0x080C );
         LCD_WriteReg ( 0x000E, 0x2B00 );
         LCD_WriteReg ( 0x001E, 0x00B0 );
-        LCD_WriteReg ( 0x0001, 0x2B3F ); //�����������320*240  0x6B3F
+        LCD_WriteReg ( 0x0001, 0x2B3F );
         LCD_WriteReg ( 0x0002, 0x0600 );
         LCD_WriteReg ( 0x0010, 0x0000 );
-        LCD_WriteReg ( 0x0011, 0x6078 ); //�������ݸ�ʽ  16λɫ         ���� 0x6058
+        LCD_WriteReg ( 0x0011, 0x6078 );
         LCD_WriteReg ( 0x0005, 0x0000 );
         LCD_WriteReg ( 0x0006, 0x0000 );
         LCD_WriteReg ( 0x0016, 0xEF1C );
         LCD_WriteReg ( 0x0017, 0x0003 );
-        LCD_WriteReg ( 0x0007, 0x0233 ); //0x0233
+        LCD_WriteReg ( 0x0007, 0x0233 );
         LCD_WriteReg ( 0x000B, 0x0000 );
-        LCD_WriteReg ( 0x000F, 0x0000 ); //ɨ�迪ʼ��ַ
+        LCD_WriteReg ( 0x000F, 0x0000 );
         LCD_WriteReg ( 0x0041, 0x0000 );
         LCD_WriteReg ( 0x0042, 0x0000 );
         LCD_WriteReg ( 0x0048, 0x0000 );
