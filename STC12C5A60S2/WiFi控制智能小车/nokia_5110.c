@@ -32,20 +32,13 @@ void LCD_clear ( void ) { /* LCD5110清屏函数 */
         LCD_write_byte ( 0, 1 ); /* 写数据到显示RAM */
 }
 
-/**********************
-目的：设置LCD坐标函数
-参数：X -- 0-83
-      Y -- 0-5
-**********************/
+/* 设置LCD坐标函数，参数X的范围是“0-83”，Y是“0-5” */
 void LCD_set_XY ( unsigned char X, unsigned char Y ) {
     LCD_write_byte ( 0x40 | Y, 0 ); /* 设置RAM的Y地址 */
     LCD_write_byte ( 0x80 | X, 0 ); /* 设置RAM的X地址 */
 }
 
-/************************
-* 目的：显示英文字符
-* 参数：c -- 显示的字符
-************************/
+/* 显示英文字符，参数c是显示的字符 */
 void LCD_write_char ( unsigned char c ) {
     unsigned char line;
     c -= 32;
@@ -53,11 +46,8 @@ void LCD_write_char ( unsigned char c ) {
         LCD_write_byte ( font6x8[c][line], 1 );
 }
 
-/*********************************************
-目的：英文字符串显示函数
-参数：s    -- 英文字符串指针；
-      X、Y -- 显示字符串的位置,x为0-83,y为0-5
-*********************************************/
+/* 英文字符串显示函数，参数s是英文字符串指针；X、Y
+   是显示字符串的位置，X的范围是“0-83”，Y是“0-5” */
 void LCD_write_english_string ( unsigned char X, unsigned char Y, char* s ) {
     LCD_set_XY ( X, Y );
     while ( *s ) {
@@ -66,14 +56,14 @@ void LCD_write_english_string ( unsigned char X, unsigned char Y, char* s ) {
     }
 }
 
-/*******************************************
-*目的：在LCD上显示汉字
-*参数：X、Y    -- 显示汉字的起始X、Y坐标
-*      ch_with -- 汉字点阵的宽度
-*      num     -- 显示汉字的个数
-*      line    -- 汉字点阵数组中的起始行数
-*      row     -- 汉字显示的行间距
-*******************************************/
+/*---------------------------------------
+目的：在LCD上显示汉字
+参数：X、Y    -- 显示汉字的起始X、Y坐标
+     ch_with -- 汉字点阵的宽度
+     num     -- 显示汉字的个数
+     line    -- 汉字点阵数组中的起始行数
+     row     -- 汉字显示的行间距
+----------------------------------------*/
 void LCD_write_chinese_string ( unsigned char X, unsigned char Y,
                                 unsigned char ch_with, unsigned char num,
                                 unsigned char line, unsigned char row ) {
@@ -97,13 +87,13 @@ void LCD_write_chinese_string ( unsigned char X, unsigned char Y,
     }
 }
 
-/***************************************
-*目的：位图绘制函数
-*参数：X、Y  -- 位图绘制的起始X、Y坐标
-*      map   -- 位图点阵数据；
-*      Pix_x -- 位图像素（长）
-*      Pix_y -- 位图像素（宽）
-****************************************/
+/*--------------------------------
+目的：位图绘制函数
+参数：X、Y   -- 位图绘制的起始X、Y坐标
+      map   -- 位图点阵数据；
+      Pix_x -- 位图像素(长)
+      Pix_y -- 位图像素(宽)
+-----------------------------------*/
 void LCD_draw_bmp_pixel ( unsigned char X, unsigned char Y, unsigned char* map,
                           unsigned char Pix_x, unsigned char Pix_y ) {
     unsigned int i, n;
@@ -125,12 +115,12 @@ void LCD_draw_bmp_pixel ( unsigned char X, unsigned char Y, unsigned char* map,
     }
 }
 
-/***************************************
-* 目的：写数据到LCD5110
-* 参数：data    -- 写入的数据
-*       command -- 写数据/命令选择
-* 说明：注意if_else语句的排版
-***************************************/
+/*----------------------------
+目的：写数据到LCD5110
+参数：data    -- 写入的数据
+     command -- 写数据/命令选择
+说明：注意if-else语句的排版
+------------------------------*/
 void LCD_write_byte ( unsigned char dat, unsigned char command ) {
     unsigned char i;
     LCD_CE = 0; /* CE上的负边缘使能串行接口，并指示开始数据传输 */
@@ -144,6 +134,7 @@ void LCD_write_byte ( unsigned char dat, unsigned char command ) {
             SDIN = 1;
         else
             SDIN = 0;
+
         SCLK = 0; /* SDIN在SCLK的正边缘取样 */
         dat  = dat << 1;
         SCLK = 1;
