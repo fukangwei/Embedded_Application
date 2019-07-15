@@ -3,40 +3,33 @@
 #include "write_chinese_string_pixel.h"
 
 void delay_1us ( void ) {
-
 }
 
-/*********************
-* 目的：初始化LCD5110
-**********************/
-void LCD_init ( void ) {
+void LCD_init ( void ) { /* 初始化LCD5110 */
     LIGHT = 0;
-    LCD_RST = 0; /*产生一个让LCD复位的低电平脉冲*/
+    LCD_RST = 0; /* 产生一个让LCD复位的低电平脉冲 */
     delay_1us();
     LCD_RST = 1;
-    /*LCD功能设置：芯片是活动的、水平寻址、使用扩展指令集*/
+    /* LCD功能设置：芯片是活动的、水平寻址、使用扩展指令集 */
     LCD_write_byte ( 0x21, 0 );
-    LCD_write_byte ( 0xc8, 0 ); /*设置偏置电压,写VOP到寄存器*/
-    LCD_write_byte ( 0x06, 0 ); /*温度校正,采用VLCD温度系数2*/
-    LCD_write_byte ( 0x13, 0 ); /*设置偏置系统,1:48*/
-    /*LCD功能设置：芯片是活动的、水平寻址、使用基本命令*/
+    LCD_write_byte ( 0xc8, 0 ); /* 设置偏置电压，写VOP到寄存器 */
+    LCD_write_byte ( 0x06, 0 ); /* 温度校正，采用VLCD温度系数2 */
+    LCD_write_byte ( 0x13, 0 ); /*设置偏置系统，为“1:48” */
+    /* LCD功能设置：芯片是活动的、水平寻址、使用基本命令 */
     LCD_write_byte ( 0x20, 0 );
     LCD_clear();
-    LCD_write_byte ( 0x0c, 0 ); /*设置为普通模式*/
+    LCD_write_byte ( 0x0c, 0 ); /* 设置为普通模式 */
     LCD_CE = 0;
 }
 
-/***********************
-* 目的：LCD5110清屏函数
-***********************/
-void LCD_clear ( void ) {
+void LCD_clear ( void ) { /* LCD5110清屏函数 */
     unsigned int i;
-    LCD_write_byte ( 0x0c, 0 ); /*设置为普通模式*/
-    LCD_write_byte ( 0x80, 0 ); /*设置RAM的X地址*/
-    LCD_write_byte ( 0x40, 0 ); /*设置RAM的Y地址*/
+    LCD_write_byte ( 0x0c, 0 ); /* 设置为普通模式 */
+    LCD_write_byte ( 0x80, 0 ); /* 设置RAM的X地址 */
+    LCD_write_byte ( 0x40, 0 ); /* 设置RAM的Y地址 */
 
     for ( i = 0; i <= 503; i++ )
-        LCD_write_byte ( 0, 1 ); /*写数据到显示RAM*/
+        LCD_write_byte ( 0, 1 ); /* 写数据到显示RAM */
 }
 
 /**********************
@@ -45,8 +38,8 @@ void LCD_clear ( void ) {
       Y -- 0-5
 **********************/
 void LCD_set_XY ( unsigned char X, unsigned char Y ) {
-    LCD_write_byte ( 0x40 | Y, 0 ); /*设置RAM的Y地址*/
-    LCD_write_byte ( 0x80 | X, 0 ); /*设置RAM的X地址*/
+    LCD_write_byte ( 0x40 | Y, 0 ); /* 设置RAM的Y地址 */
+    LCD_write_byte ( 0x80 | X, 0 ); /* 设置RAM的X地址 */
 }
 
 /************************
@@ -88,15 +81,17 @@ void LCD_write_chinese_string ( unsigned char X, unsigned char Y,
     LCD_set_XY ( X, Y );
 
     for ( i = 0; i < num; ) {
-        for ( n = 0; n < ch_with * 2; n++ ) { /*写一个汉字*/
-            if ( n == ch_with ) { /*写汉字的下半部分*/
+        for ( n = 0; n < ch_with * 2; n++ ) { /* 写一个汉字 */
+            if ( n == ch_with ) { /* 写汉字的下半部分 */
                 if ( i == 0 )
                     LCD_set_XY ( X, Y + 1 );
                 else
                     LCD_set_XY ( ( X + ( ch_with + row ) *i ), Y + 1 );
             }
+
             LCD_write_byte ( write_chinese[line + i][n], 1 );
         }
+
         i++;
         LCD_set_XY ( ( X + ( ch_with + row ) *i ), Y );
     }
@@ -115,16 +110,18 @@ void LCD_draw_bmp_pixel ( unsigned char X, unsigned char Y, unsigned char* map,
     unsigned char row;
 
     if ( Pix_y % 8 == 0 )
-        row = Pix_y / 8; /*计算位图所占行数(是指缓冲块的行数)*/
+        row = Pix_y / 8; /* 计算位图所占行数(是指缓冲块的行数) */
     else
         row = Pix_y / 8 + 1;
 
     for ( n = 0; n < row; n++ ) {
         LCD_set_XY ( X, Y );
+
         for ( i = 0; i < Pix_x; i++ ) {
             LCD_write_byte ( map[i + n * Pix_x], 1 );
         }
-        Y++; /*换行*/
+
+        Y++; /* 换行 */
     }
 }
 
@@ -136,20 +133,21 @@ void LCD_draw_bmp_pixel ( unsigned char X, unsigned char Y, unsigned char* map,
 ***************************************/
 void LCD_write_byte ( unsigned char dat, unsigned char command ) {
     unsigned char i;
-    LCD_CE = 0;   /*CE上的负边缘使能串行接口
-                    并指示开始数据传输*/
+    LCD_CE = 0; /* CE上的负边缘使能串行接口，并指示开始数据传输 */
+
     if ( command == 0 )
         LCD_DC = 0;
     else
         LCD_DC = 1;
     for ( i = 0; i < 8; i++ ) {
-        if ( dat & 0x80 ) /*首先传送的是字节的MSB(高位)*/
+        if ( dat & 0x80 ) /* 首先传送的是字节的MSB(高位) */
             SDIN = 1;
         else
             SDIN = 0;
-        SCLK = 0; /*SDIN在SCLK的正边缘取样*/
+        SCLK = 0; /* SDIN在SCLK的正边缘取样 */
         dat  = dat << 1;
         SCLK = 1;
     }
+
     LCD_CE = 1;
 }
